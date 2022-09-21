@@ -92,8 +92,7 @@ public class GridDisplay : MonoBehaviour
 /// Les lignes au delà de celle-ci ne vous concernent pas.
 
     private static _GridDisplay _grid = null;
-    void Awake()
-    {
+    void Awake(){
         _grid = GameObject.FindObjectOfType<_GridDisplay>();
         _grid.height = height;
         _grid.width = width;
