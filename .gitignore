@@ -1,5 +1,11 @@
-Logs
-UserSettings
-Library
-Temp
-.vscode
+/Logs
+/UserSettings
+/Library
+/Temp
+/Packages
+/ProjectSettings
+/.vscode
+*.ttf
+*.pdf
+*.png
+*.asset

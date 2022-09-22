@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public delegate void TickFunction();
-public delegate void RotateFunction();
+public delegate void TickFunction ();
+public delegate void RotateFunction ();
 
-public delegate void MoveFunction();
+public delegate void MoveFunction ();
 
-public delegate void RushFunction();
+public delegate void RushFunction ();
 
 public class _GridDisplay : MonoBehaviour
 {
@@ -22,8 +22,8 @@ public class _GridDisplay : MonoBehaviour
 
     public TickFunction Tick = null;
     public RotateFunction Rotate = null;
-    public MoveFunction MoveLeft = null;
-    public MoveFunction MoveRight = null;
+    public MoveFunction MoveLeft  = null;
+    public MoveFunction MoveRight  = null;
 
     public RushFunction Rush = null;
 
@@ -38,7 +38,7 @@ public class _GridDisplay : MonoBehaviour
 
     public GameObject squarePrefab = null;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Create();
     }
@@ -49,99 +49,74 @@ public class _GridDisplay : MonoBehaviour
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
 
-    void Create()
-    {
+    void Create(){
         GameObject parent = new GameObject();
         parent.name = "Grid";
-        for (int y = 0; y < this.height; y++)
-        {
-            for (int x = 0; x < this.width; x++)
-            {
+        for(int y = 0; y < this.height; y++){
+            for(int x = 0; x < this.width; x++){
                 GameObject go = GameObject.Instantiate(squarePrefab);
-                go.transform.position = new Vector3(cornerLeft + x * squareSize, cornerTop - y * squareSize, 0);
-                go.transform.localScale = new Vector3(squareSize, squareSize, 1);
-                go.name = $"Cell-{x}-{y}";
+                go.transform.position = new Vector3(cornerLeft + x*squareSize,cornerTop -y*squareSize,0 );
+                go.transform.localScale = new Vector3(squareSize,squareSize,1);
+                go.name= $"Cell-{x}-{y}";
                 go.transform.SetParent(parent.transform);
                 squares.Add(go.GetComponent<_Square>());
             }
         }
     }
 
-    public void SetScore(int score)
-    {
-        if (this.score)
-        {
+    public void SetScore(int score){
+        if(this.score){
             this.score.SetText($"{score}");
         }
     }
 
-    public void TriggerGameOver()
-    {
+    public void TriggerGameOver(){
         this.gameOver.SetActive(true);
         this.StopCoroutine(this.tickCoroutine);
     }
 
-    public void SetColors(List<List<SquareColor>> colors)
-    {
-        if (colors.Count != this.height)
-        {
+    public void SetColors(List<List<SquareColor>> colors){
+        if(colors.Count != this.height){
             throw new System.FormatException("Provided grid does not have the right number of lines.");
         }
-        for (int y = 0; y < colors.Count; y++)
-        {
-            if (colors[y].Count != this.width)
-            {
+        for(int y = 0; y < colors.Count; y++){
+            if(colors[y].Count != this.width){
                 throw new System.FormatException($"Line {y} of provided grid does not have the right number of columns.");
             }
-            for (int x = 0; x < colors[y].Count; x++)
-            {
-                squares[y * this.height + x].color = colors[y][x];
+            for(int x = 0; x < colors[y].Count; x++){
+                squares[y*this.width + x].color = colors[y][x];
             }
         }
     }
 
-    void OnRotate()
-    {
-        Debug.Log("Rotate");
-        if (this.Rotate != null)
-        {
+    void OnRotate(){
+        if(this.Rotate != null){
             this.Rotate();
         }
     }
 
-    void OnMoveLeft()
-    {
-        Debug.Log("MoveLeft");
-        if (this.MoveLeft != null)
-        {
+    void OnMoveLeft(){
+        if(this.MoveLeft != null){
             this.MoveLeft();
         }
     }
 
-    void OnMoveRight()
-    {
-        Debug.Log("MoveRight");
-        if (this.MoveRight != null)
-        {
+    void OnMoveRight(){
+        if(this.MoveRight != null){
             this.MoveRight();
         }
     }
 
-    void OnRush()
-    {
-        Debug.Log("Rush");
-        if (this.MoveRight != null)
-        {
+    void OnRush(){
+        if(this.MoveRight != null){
             this.MoveRight();
         }
     }
 
 
-    IEnumerator LaunchTicks()
-    {
+    IEnumerator LaunchTicks(){
         yield return new WaitForSeconds(tick);
-        if (Tick != null)
-        {
+        if(Tick != null){
             Tick();
         }
     }
