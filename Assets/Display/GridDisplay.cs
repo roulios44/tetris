@@ -13,6 +13,7 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
+    
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
@@ -21,11 +22,20 @@ public class GridDisplay : MonoBehaviour
         //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
         //        et la flèche du bas du clavier.
         //
-        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
-                  
+        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes! 
+        List<List<SquareColor>> grid = new List<List<SquareColor>>();
+        for (int i=0;i<_grid.height;i++){
+            List<SquareColor> testColor = new List<SquareColor>();
+            for (int j=0;j<_grid.width;j++){
+                SquareColor color = SquareColor.GREEN;
+                testColor.Add(color);
+            }
+            grid.Add(testColor);
+        }
+        _grid.SetColors(grid);
     }
 
-    // Paramètre la fonction devant être appelée à chaque tick. 
+    // Paramètre la fonction devant être appelée à chaque tick.
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu!
     // Cette fonction peut être une méthode d'une autre classe
     // et doit renvoyer void, et ne prendre aucun argument.
@@ -89,7 +99,7 @@ public class GridDisplay : MonoBehaviour
     }
 
 
-/// Les lignes au delà de celle-ci ne vous concernent pas.
+    /// Les lignes au delà de celle-ci ne vous concernent pas.
 
     private static _GridDisplay _grid = null;
     void Awake()
@@ -101,6 +111,6 @@ public class GridDisplay : MonoBehaviour
 
     void Start(){
         Initialize();
-    }
+    }   
     
 }
