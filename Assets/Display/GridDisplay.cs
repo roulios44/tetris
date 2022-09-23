@@ -16,7 +16,7 @@ public class GridDisplay : MonoBehaviour
         MirorGrid mirorGrid = new MirorGrid();
         mirorGrid.SetGridBackground();
         SetTickTime(2.0f);
-        SetTickFunction(mirorGrid.GameTest);
+        SetTickFunction(mirorGrid.GameTick);
         
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.

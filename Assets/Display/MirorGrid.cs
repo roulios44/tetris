@@ -23,17 +23,16 @@ public class MirorGrid{
         _grid.SetColors(mirorGrid);
     }
     public void GeneratePiece(){
-
-    }
-    public void GameTest(){
         for (int i = 0; i<test.ListX.Count;i++){
-            Debug.Log(test.ListY[i]);
             if (test.ListY[i] < 21){
                 mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.GREEN;
                 test.ChangeListY(i,test.ListY[i]+1);
-                mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.RED;
+                mirorGrid[test.ListY[i]][test.ListX[i]] = test.colorPiece;
+                }
             }
-        }
         _grid.SetColors(mirorGrid);
+    }
+    public void GameTick(){
+        GeneratePiece();
     }
 }
