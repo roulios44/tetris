@@ -1,15 +1,14 @@
-public class Piece {
-    pubic Piece(SquareColor color,  int[,] spawn_coord) {
-        String COLOR = color;
-        int[,] SPAWN_COORD = spawn_coord;
-    }
-    
-    Piece LIGHT_BLUE_PIECE = new Piece(SquareColor.LIGHT_BLUE, {{5, 6, 7, 8} {0, 0, 0, 0}});
-    Piece DEEP_BLUE_PIECE = new Piece(SquareColor.DEEP_BLUE, {{5, 5, 6, 7}, {0, 1, 1, 1}});
-    Piece ORANGE_PIECE = new Piece(SquareColor.ORANGE, {{5, 6, 7, 7}, {1, 1, 1, 0}});
-    Piece YELLOW_PIECE = new Piece(SquareColor.YELLOW, {{5, 5, 6, 6}, {0, 0, 1, 1}});
-    Piece GREEN_PIECE = new Piece(SquareColor.GREEN, {{5, 6, 6, 7}, {1, 1, 0, 0}});
-    Piece PURPLE_PIECE = new Piece(SquareColor.PURPLE, {{5, 6, 6, 7}, {1, 1, 0, 1}});
-    Piece RED_PIECE = new Piece(SquareColor.PURPLE, {{5, 6, 6, 7}, {0, 0, 1, 1}});
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
+public class Piece {
+    public SquareColor COLOR {get; set;}
+    public int[] SPAWN_COORD_X {get; set;}
+    public int[] SPAWN_COORD_Y {get; set;}
+    public Piece(SquareColor color,  int[] spawn_coord_x, int[] spawn_coord_y) : base() {
+        SquareColor COLOR = color;
+        int[] SPAWN_COORD_X = spawn_coord_x;
+        int[] SPAWN_COORD_Y = spawn_coord_y;
+    }
 }
