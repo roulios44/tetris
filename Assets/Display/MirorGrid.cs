@@ -27,9 +27,9 @@ public class MirorGrid{
     }
     public void GameTest(){
         for (int i = 0; i<test.ListX.Count;i++){
-            if (test.ArrayX[i] < 21){
+            if (test.ListX[i] < 21){
                 mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.GREEN;
-                test.ChangeListY(i,test.ArrayY[i]+1);
+                test.ChangeListY(i,test.ListY[i]+1);
                 mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.RED;
             }
         }
