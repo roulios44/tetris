@@ -6,9 +6,12 @@ using UnityEngine;
 public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
-    private int height = _grid.height;
-    private int widht = _grid.widht;
+    private int height = 0;
+    private int widht = 0;
+    private int test = 8;
     public void SetGridBackground(){
+        height = _grid.height;
+        widht = _grid.width;
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
             for (int j=0;j<_grid.width;j++){
@@ -23,5 +26,11 @@ public class MirorGrid{
 
     }
     public void GameTest(){
+        if (test > 0){
+            mirorGrid[test][3] = SquareColor.GREEN;
+            test++;
+            mirorGrid[test][3] = SquareColor.RED;
+            _grid.SetColors(mirorGrid);
+        }
     }
 }
