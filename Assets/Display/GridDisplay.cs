@@ -13,17 +13,8 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        List<List<SquareColor>> grid = new List<List<SquareColor>>();
-        for (int i=0;i<_grid.height;i++){
-            List<SquareColor> testColor = new List<SquareColor>();
-            for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
-                testColor.Add(color);
-            }
-            grid.Add(testColor);
-            
-        }
-        _grid.SetColors(grid);
+        MirorGrid mirorGrid = new MirorGrid();  
+        mirorGrid.SetGridBackground();
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
@@ -42,6 +33,7 @@ public class GridDisplay : MonoBehaviour
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetTickFunction(TickFunction function){
         _grid.Tick = function;
+        // Use SETCOLORS FUNC TO RELOAD ALL OF THAT 
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la barre d'espace 
