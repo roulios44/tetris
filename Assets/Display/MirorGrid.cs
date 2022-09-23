@@ -8,7 +8,7 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
-    private Piece test = new Piece();
+    private Piece test = new IPiece();
     public void SetGridBackground(){
         height = _grid.height;
         widht = _grid.width;
