@@ -85,10 +85,6 @@ public class _GridDisplay : MonoBehaviour
                 throw new System.FormatException($"Line {y} of provided grid does not have the right number of columns.");
             }
             for(int x = 0; x < colors[y].Count; x++){
-<<<<<<< HEAD:Assets/Internal/GridDisplay.cs
-                Debug.Log(y*this.width + x);
-=======
->>>>>>> 2e6d334e16672a9ac0ee2396f76e73a69aed7e19:Assets/Internal/_GridDisplay.cs
                 squares[y*this.width + x].color = colors[y][x];
             }
         }

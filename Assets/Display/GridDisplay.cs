@@ -33,16 +33,6 @@ public class GridDisplay : MonoBehaviour
         //        et la flèche du bas du clavier.
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes! 
-        List<List<SquareColor>> grid = new List<List<SquareColor>>();
-        for (int i=0;i<_grid.height;i++){
-            List<SquareColor> testColor = new List<SquareColor>();
-            for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
-                testColor.Add(color);
-            }
-            grid.Add(testColor);
-        }
-        _grid.SetColors(grid);
     }
 
     // Paramètre la fonction devant être appelée à chaque tick.
