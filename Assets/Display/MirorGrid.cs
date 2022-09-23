@@ -26,7 +26,7 @@ public class MirorGrid{
 
     }
     public void GameTest(){
-        if (test > 0){
+        if (test < 21){
             mirorGrid[test][3] = SquareColor.GREEN;
             test++;
             mirorGrid[test][3] = SquareColor.RED;
