@@ -106,13 +106,12 @@ public class _GridDisplay : MonoBehaviour
             this.MoveRight();
         }
     }
-
+    
     void OnRush(){
         if(this.Rush != null){
             this.Rush();
         }
     }
-
 
     IEnumerator LaunchTicks(){
         yield return new WaitForSeconds(tick);
