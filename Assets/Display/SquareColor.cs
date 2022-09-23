@@ -9,3 +9,4 @@ public enum SquareColor {
     RED,
     TRANSPARENT,
 }
+
