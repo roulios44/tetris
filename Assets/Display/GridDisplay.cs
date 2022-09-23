@@ -13,16 +13,9 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        List<List<SquareColor>> grid = new List<List<SquareColor>>();
-        for (int i=0;i<_grid.height;i++){
-            List<SquareColor> testColor = new List<SquareColor>();
-            for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
-                testColor.Add(color);
-            }
-            grid.Add(testColor);
-        }
-        _grid.SetColors(grid);
+        MirorGrid mirorGrid = new MirorGrid();
+        mirorGrid.SetGridBackground();
+        SetTickFunction(mirorGrid.GameTest);
         Piece LIGHT_BLUE_PIECE = new Piece(LIGHT_BLUE, [{0,5}, {0,6}, {0,7}, {0,8}]);
         Debug.Log(LIGHT_BLUE_PIECE.SPAWN_COORD);
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
