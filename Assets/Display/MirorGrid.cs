@@ -8,7 +8,7 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
-    private int test = 8;
+    private int test = 10;
     public void SetGridBackground(){
         height = _grid.height;
         widht = _grid.width;
@@ -23,10 +23,9 @@ public class MirorGrid{
         _grid.SetColors(mirorGrid);
     }
     public void GeneratePiece(){
-
     }
     public void GameTest(){
-        if (test > 0){
+        if (test < 21){
             mirorGrid[test][3] = SquareColor.GREEN;
             test++;
             mirorGrid[test][3] = SquareColor.RED;
