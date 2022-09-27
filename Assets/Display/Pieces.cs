@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 
 public class Pieces {
-    public int[] RandomPiece() {
+    public int[] orderPiece;
+    public Pieces() {
         List<int> toRandomize = new List<int> ();
         for (int i = 1; i < 8; i++) {
             toRandomize.Add(i);
@@ -15,6 +16,6 @@ public class Pieces {
             randomOrder.Add(toRandomize[randomArrayPlace]);
             toRandomize.RemoveAt(randomArrayPlace);
         }
-        return randomOrder.ToArray();
+        orderPiece = randomOrder.ToArray();
     }
 }

@@ -8,31 +8,42 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
-    private Piece test = new JPiece();
-    public void SetGridBackground(){
-        height = _grid.height;
-        widht = _grid.width;
+    public Pieces patternPieces = new Pieces();
+    protected Piece currentPiece = new IPiece();
+    public MirorGrid(){
+        SetGrid();
+    }
+    protected void SetGrid(){
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
             for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.TRANSPARENT;
+                SquareColor color = SquareColor.GREEN;
                 LigneColor.Add(color);
             }
             mirorGrid.Add(LigneColor);   
         }
         _grid.SetColors(mirorGrid);
     }
-    public void GeneratePiece(){
-        for (int i = 0; i<test.ListX.Count;i++){
-            if (test.ListY[i] < 21){
-                mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.TRANSPARENT;
-                test.ChangeListY(i,test.ListY[i]+1);
-                mirorGrid[test.ListY[i]][test.ListX[i]] = test.colorPiece;
+    public void passifFall(){
+        for (int i = 0; i<currentPiece.ListX.Count;i++){
+            if (currentPiece.ListY[i] < 21){
+                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = SquareColor.TRANSPARENT;
+                currentPiece.ChangeListY(i,currentPiece.ListY[i]+1);
+                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = currentPiece.colorPiece;
                 }
             }
         _grid.SetColors(mirorGrid);
     }
+    public void PieceGoRight(){
+        _grid.SetColors(currentPiece.GoRight(mirorGrid));
+    }
+    public void PieceGoLeft(){
+        _grid.SetColors(currentPiece.GoLeft(mirorGrid));
+    }
+    // public Piece generatePiece(){
+    //     Piece.patternPieces.orderPiece[0];
+    // }
     public void GameTick(){
-        GeneratePiece();
+        passifFall();
     }
 }

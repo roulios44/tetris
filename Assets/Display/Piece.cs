@@ -1,15 +1,81 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Piece{
     public List<int> ListX;
     public List<int> ListY;
     public SquareColor colorPiece;
-
+    public bool canGoRight;
+    public bool canGoLeft;
     public void ChangeListX(int index, int value){
         ListX[index] = value;
     }
     public void ChangeListY(int index, int value){
         ListY[index] = value;
+    }
+    public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
+        lookRight();
+        if (canGoRight){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] + 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }
+    public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
+        lookLeft();
+        if (canGoLeft){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] - 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }
+    private void lookRight(){
+        bool rightisOk = true;
+        foreach (int coordX in ListX){
+            if (coordX + 1 > 9) rightisOk = false;
+        }
+        if (rightisOk) canGoRight = true;
+        else canGoRight = false;
+    }
+    private void lookLeft(){
+        bool leftIsOk = true;
+        foreach (int coordX in ListX){
+            if (coordX - 1 < 0) leftIsOk = false;
+        }
+        if (leftIsOk) canGoLeft = true;
+        else canGoLeft = false;
+    }
+    public Piece getPiece(int index){
+        switch(index){
+            case 1:
+                return new IPiece();
+                break;
+            case 2: 
+                return new TPiece();
+                break;
+            case 3:
+                return new OPiece();
+                break;
+            case 4:
+                return new ZPiece();
+                break;
+            case 5:
+                return new SPiece();
+                break;
+            case 6:
+                return new LPiece();
+                break;
+            case 7:
+                return new JPiece();
+                break;
+        }
+        return new IPiece();
     }
     //TODO add a metod to watch piece under each pixel 
 }
