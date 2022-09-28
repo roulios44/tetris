@@ -44,7 +44,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
@@ -108,16 +108,23 @@ public class _GridDisplay : MonoBehaviour
     }
 
     void OnRush(){
+<<<<<<< HEAD
         if(this.MoveRight != null){
             this.MoveRight();
+=======
+        if(this.Rush != null){
+            this.Rush();
+>>>>>>> 8e29ba3ea065e509405858b15bf296d5588bb24c
         }
     }
 
 
     IEnumerator LaunchTicks(){
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }
