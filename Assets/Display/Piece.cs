@@ -31,7 +31,7 @@ public class Piece{
     public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
         lookRight();
         if (canGoRight){
-            for (int i=0;i<ListX.Count;i++){
+            for (int i=ListX.Count;i>=1;i--){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
                 ChangeListX(i, ListX[i] + 1);
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
