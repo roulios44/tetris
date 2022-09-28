@@ -24,15 +24,8 @@ public class MirorGrid{
         }
         _grid.SetColors(mirorGrid);
     }
-    public void passifFall(){
-        for (int i = 0; i<currentPiece.ListX.Count;i++){
-            if (currentPiece.ListY[i] < 21){
-                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = SquareColor.TRANSPARENT;
-                currentPiece.ChangeListY(i,currentPiece.ListY[i]+1);
-                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = currentPiece.colorPiece;
-                }
-            }
-        _grid.SetColors(mirorGrid);
+    public void PieceGoDown(){
+        _grid.SetColors(currentPiece.GoDown(mirorGrid));
     }
     public void PieceGoRight(){
         _grid.SetColors(currentPiece.GoRight(mirorGrid));
@@ -44,6 +37,6 @@ public class MirorGrid{
     //     Piece.patternPieces.orderPiece[0];
     // }
     public void GameTick(){
-        passifFall();
+        PieceGoDown();
     }
 }

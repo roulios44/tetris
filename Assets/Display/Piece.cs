@@ -7,12 +7,27 @@ public class Piece{
     public SquareColor colorPiece;
     public bool canGoRight;
     public bool canGoLeft;
+    public bool canGoDown;
+
     public void ChangeListX(int index, int value){
         ListX[index] = value;
     }
+
     public void ChangeListY(int index, int value){
         ListY[index] = value;
     }
+
+    public List<List<SquareColor>> GoDown(List<List<SquareColor>> mirorGrid){
+        for (int i = 0; i<ListX.Count;i++){
+            if (ListY[i] < 21){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListY(i,ListY[i]+1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+                }
+            }
+            return mirorGrid;
+    }
+    
     public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
         lookRight();
         if (canGoRight){
@@ -24,6 +39,7 @@ public class Piece{
         }
         return mirorGrid;
     }
+
     public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
         lookLeft();
         if (canGoLeft){
@@ -35,6 +51,7 @@ public class Piece{
         }
         return mirorGrid;
     }
+    
     private void lookRight(){
         bool rightisOk = true;
         foreach (int coordX in ListX){
@@ -43,6 +60,7 @@ public class Piece{
         if (rightisOk) canGoRight = true;
         else canGoRight = false;
     }
+
     private void lookLeft(){
         bool leftIsOk = true;
         foreach (int coordX in ListX){
@@ -51,31 +69,15 @@ public class Piece{
         if (leftIsOk) canGoLeft = true;
         else canGoLeft = false;
     }
-    public Piece getPiece(int index){
-        switch(index){
-            case 1:
-                return new IPiece();
-                break;
-            case 2: 
-                return new TPiece();
-                break;
-            case 3:
-                return new OPiece();
-                break;
-            case 4:
-                return new ZPiece();
-                break;
-            case 5:
-                return new SPiece();
-                break;
-            case 6:
-                return new LPiece();
-                break;
-            case 7:
-                return new JPiece();
-                break;
+
+    private void lookBottom(List<List<SquareColor>> mirorGrid){
+        for (int i = 0; i<ListX.Count;i++){
+            if (mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21){
+                Debug.Log("Can go under");
+            } else {
+                Debug.Log("Can't");
+            }
         }
-        return new IPiece();
     }
     //TODO add a metod to watch piece under each pixel 
 }
