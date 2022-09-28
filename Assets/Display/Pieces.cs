@@ -1,6 +1,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Pieces {
     public int[] orderPiece;
@@ -8,11 +9,11 @@ public class Pieces {
     public List<Piece> allPieces = new List<Piece>();
     public Pieces() {
         List<int> toRandomize = new List<int> ();
-        for (int i = 1; i < 8; i++) {
+        for (int i = 0; i < totalPieces; i++) {
             toRandomize.Add(i);
         }
         List<int> randomOrder = new List<int> ();
-        Random rnd = new Random();
+        System.Random rnd = new System.Random();
         while(toRandomize.Count != 0) {
             int randomArrayPlace = rnd.Next(0, toRandomize.Count);
             randomOrder.Add(toRandomize[randomArrayPlace]);
@@ -36,4 +37,3 @@ public class Pieces {
         }
     }
 }
-
