@@ -16,7 +16,7 @@ public class GridDisplay : MonoBehaviour
         MirorGrid mirorGrid = new MirorGrid();
         Pieces test = new Pieces();
         test.setPiecesOrder();
-        SetTickTime(2.0f);
+        SetTickTime(0.3f);
         SetMoveRightFunction(mirorGrid.PieceGoRight);
         SetMoveLeftFunction(mirorGrid.PieceGoLeft);
         SetRushFunction(mirorGrid.PieceGoDown);

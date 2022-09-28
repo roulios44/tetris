@@ -8,9 +8,11 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
+    private int indexActuelPiece = 0;
     public Pieces patternPieces = new Pieces();
-    protected Piece currentPiece = new IPiece();
+    protected Piece currentPiece;
     public MirorGrid(){
+        currentPiece = patternPieces.allPieces[indexActuelPiece];
         SetGrid();
     }
     protected void SetGrid(){
@@ -34,6 +36,15 @@ public class MirorGrid{
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
     public void GameTick(){
+        if (currentPiece.isStop){
+            if (indexActuelPiece > Pieces.totalPieces){
+                indexActuelPiece = 0;
+                patternPieces = new Pieces();
+            } else {
+                indexActuelPiece++;
+            }
+            currentPiece = patternPieces.allPieces[indexActuelPiece];
+        }
         PieceGoDown();
     }
 }

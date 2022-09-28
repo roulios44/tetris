@@ -76,12 +76,15 @@ public class Piece{
 
     private void lookBottom(List<List<SquareColor>> mirorGrid){
         bool bottomIsOk = true;
-        for (int i = 0; i<ListX.Count;i++){
+        for (int i = 0; i< ListX.Count;i++){
             if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21)){
                 bottomIsOk = false;
             }
             if (bottomIsOk) canGoDown = true;
-            else canGoDown = false;
+            else {
+                canGoDown = false;
+                isStop = true;
+            }
         }
     }
 }

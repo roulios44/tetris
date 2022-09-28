@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pieces {
     public int[] orderPiece;
-    private int totalPieces = 7;
+    public static int totalPieces = 7;
     public List<Piece> allPieces = new List<Piece>();
     public Pieces() {
         List<int> toRandomize = new List<int> ();
@@ -20,6 +20,7 @@ public class Pieces {
             toRandomize.RemoveAt(randomArrayPlace);
         }
         orderPiece = randomOrder.ToArray();
+        setPiecesOrder();
     }
     public void setPiecesOrder(){
         allPieces = new List<Piece>();
