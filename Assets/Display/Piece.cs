@@ -8,6 +8,7 @@ public class Piece{
     public bool canGoRight;
     public bool canGoLeft;
     public bool canGoDown;
+    public bool isStop;
 
     public void ChangeListX(int index, int value){
         ListX[index] = value;
@@ -18,14 +19,15 @@ public class Piece{
     }
 
     public List<List<SquareColor>> GoDown(List<List<SquareColor>> mirorGrid){
-        for (int i = 0; i<ListX.Count;i++){
-            if (ListY[i] < 21){
+        lookBottom(mirorGrid);
+        if (canGoDown){
+            for (int i = 0; i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
                 ChangeListY(i,ListY[i]+1);
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
-                }
             }
-            return mirorGrid;
+        }
+        return mirorGrid;
     }
     
     public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
@@ -73,16 +75,15 @@ public class Piece{
     }
 
     private void lookBottom(List<List<SquareColor>> mirorGrid){
-        for (int i = 0; i<ListX.Count;i++){
-            if (mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21){
-                Debug.Log("Can go under");
-            } else {
-                Debug.Log("Can't");
+        bool bottomIsOk = true;
+        for (int i = ; i<ListX.Count;i++){
+            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21)){
+                bottomIsOk = false;
             }
+            if (bottomIsOk) canGoDown = true;
+            else canGoDown = false;
         }
     }
-
-    //TODO add a metod to watch piece under each pixel 
 }
 
 
