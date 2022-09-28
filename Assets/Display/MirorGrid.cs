@@ -34,7 +34,6 @@ public class MirorGrid{
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
     public void GameTick() {
-        if (!currentPiece.canGoDown) isStop = true;
         PieceGoDown();
     }
 }
