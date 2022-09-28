@@ -23,6 +23,8 @@ public class Piece{
         if (canGoDown){
             for (int i = 0; i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+            }
+            for ( int i=0;i<ListX.Count;i++){
                 ChangeListY(i,ListY[i]+1);
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
