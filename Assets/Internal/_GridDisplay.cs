@@ -44,7 +44,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
@@ -116,9 +116,11 @@ public class _GridDisplay : MonoBehaviour
 
 
     IEnumerator LaunchTicks(){
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }

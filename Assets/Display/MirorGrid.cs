@@ -8,10 +8,12 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
-    private int test = 10;
-    public void SetGridBackground(){
-        height = _grid.height;
-        widht = _grid.width;
+    public Pieces patternPieces = new Pieces();
+    protected Piece currentPiece = new IPiece();
+    public MirorGrid(){
+        SetGrid();
+    }
+    protected void SetGrid(){
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
             for (int j=0;j<_grid.width;j++){
@@ -22,14 +24,19 @@ public class MirorGrid{
         }
         _grid.SetColors(mirorGrid);
     }
-    public void GeneratePiece(){
+    public void PieceGoDown(){
+        _grid.SetColors(currentPiece.GoDown(mirorGrid));
     }
-    public void GameTest(){
-        if (test < 21){
-            mirorGrid[test][3] = SquareColor.GREEN;
-            test++;
-            mirorGrid[test][3] = SquareColor.RED;
-            _grid.SetColors(mirorGrid);
-        }
+    public void PieceGoRight(){
+        _grid.SetColors(currentPiece.GoRight(mirorGrid));
+    }
+    public void PieceGoLeft(){
+        _grid.SetColors(currentPiece.GoLeft(mirorGrid));
+    }
+    // public Piece generatePiece(){
+    //     Piece.patternPieces.orderPiece[0];
+    // }
+    public void GameTick(){
+        PieceGoDown();
     }
 }

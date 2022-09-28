@@ -434,6 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715771f744eac67b7baac067bb750ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  height: 22
+  width: 10
 --- !u!114 &445361903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,8 +452,8 @@ MonoBehaviour:
   height: 22
   squareSize: 0.4
   tick: 1
-  gameOver: {fileID: 0}
-  score: {fileID: 0}
+  gameOver: {fileID: 331839849}
+  score: {fileID: 565005886}
   squarePrefab: {fileID: 2573218514921689693, guid: 508351f43ff9ee3dcab142ebee23cdd0, type: 3}
 --- !u!114 &445361904
 MonoBehaviour:
