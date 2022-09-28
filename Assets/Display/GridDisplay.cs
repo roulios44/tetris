@@ -15,10 +15,6 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
         MirorGrid mirorGrid = new MirorGrid();
         Pieces testPiece = new Pieces();
-        int[] bla = testPiece.RandomPiece();
-        for (int i = 0; i < bla.Length; i++) {
-            Debug.Log(bla[i]);
-        }
         mirorGrid.SetGridBackground();
         SetTickTime(2.0f);
         SetTickFunction(mirorGrid.GameTick);

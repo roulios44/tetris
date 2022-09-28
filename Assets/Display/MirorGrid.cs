@@ -22,7 +22,7 @@ public class MirorGrid{
         }
         _grid.SetColors(mirorGrid);
     }
-    public void GeneratePiece(){
+    public void GeneratePiece() {
         for (int i = 0; i<test.ListX.Count;i++){
             if (test.ListY[i] < 21){
                 mirorGrid[test.ListY[i]][test.ListX[i]] = SquareColor.GREEN;
@@ -32,6 +32,7 @@ public class MirorGrid{
             }
         _grid.SetColors(mirorGrid);
     }
+    
     public void GameTick(){
         GeneratePiece();
     }
