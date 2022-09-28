@@ -45,5 +45,20 @@ public class MirorGrid{
             currentPiece = patternPieces.allPieces[indexActuelPiece];
         }
         PieceGoDown();
+        BreakLine();
+    }
+
+    public void BreakLine() {
+        for (int i = 0; i < _grid.height; i++) {
+            if (!mirorGrid[i].Contains(SquareColor.TRANSPARENT)) {
+                List<SquareColor> LigneColor = new List<SquareColor>();
+                for (int j=0;j<_grid.width;j++){
+                SquareColor color = SquareColor.TRANSPARENT;
+                LigneColor.Add(color);
+            }
+            mirorGrid.RemoveAt(i);
+            mirorGrid.Insert(0, LigneColor);
+            }
+        }
     }
 }
