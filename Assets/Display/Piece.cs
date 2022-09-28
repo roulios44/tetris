@@ -31,7 +31,7 @@ public class Piece{
     public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
         lookRight();
         if (canGoRight){
-            for (int i=ListX.Count;i>=1;i--){
+            for (int i=0;i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
             }
             for (int i=0;i<ListX.Count;i++){
@@ -81,6 +81,7 @@ public class Piece{
             }
         }
     }
+
     //TODO add a metod to watch piece under each pixel 
 }
 
