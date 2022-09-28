@@ -36,4 +36,7 @@ public class MirorGrid{
     public void GameTick(){
         PieceGoDown();
     }
+    public void setScore() {
+        _grid.score();
+    }
 }
