@@ -1,17 +1,87 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Piece{
     public List<int> ListX;
     public List<int> ListY;
     public SquareColor colorPiece;
-
+    public bool canGoRight;
+    public bool canGoLeft;
     public void ChangeListX(int index, int value){
         ListX[index] = value;
     }
     public void ChangeListY(int index, int value){
         ListY[index] = value;
     }
+    public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
+        lookRight();
+        if (canGoRight){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] + 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }
+    public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
+        lookLeft();
+        if (canGoLeft){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] - 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }
+    private void lookRight(){
+        bool rightisOk = true;
+        foreach (int coordX in ListX){
+            if (coordX + 1 > 9) rightisOk = false;
+        }
+        if (rightisOk) canGoRight = true;
+        else canGoRight = false;
+    }
+    private void lookLeft(){
+        bool leftIsOk = true;
+        foreach (int coordX in ListX){
+            if (coordX - 1 < 0) leftIsOk = false;
+        }
+        if (leftIsOk) canGoLeft = true;
+        else canGoLeft = false;
+    }
+    public Piece getPiece(int index){
+        switch(index){
+            case 1:
+                return new IPiece();
+                break;
+            case 2: 
+                return new TPiece();
+                break;
+            case 3:
+                return new OPiece();
+                break;
+            case 4:
+                return new ZPiece();
+                break;
+            case 5:
+                return new SPiece();
+                break;
+            case 6:
+                return new LPiece();
+                break;
+            case 7:
+                return new JPiece();
+                break;
+        }
+        return new IPiece();
+    }
+    //TODO add a metod to watch piece under each pixel 
 }
+
+
+//Part with all pieces specifiquations
 
 public class IPiece : Piece{
     public IPiece() : base(){
@@ -20,51 +90,45 @@ public class IPiece : Piece{
         colorPiece = SquareColor.LIGHT_BLUE;
     }
 }
-
-public class JPiece : Piece {
-    public JPiece() : base() {
-        ListX = new List<int>(new int[] {5, 5, 6, 7});
-        ListY = new List<int> (new int[] {0, 1, 1, 1});
-        colorPiece = SquareColor.DEEP_BLUE;
-    }
-}
-
-public class KPiece : Piece {
-    public KPiece() : base() {
-        ListX = new List<int>(new int[] {5, 6, 7, 7});
-        ListY = new List<int> (new int[] {1, 1, 1, 0});
-        colorPiece = SquareColor.ORANGE;
-    }
-}
-
-public class LPiece : Piece {
-    public LPiece() : base() {
-        ListX = new List<int>(new int[] {5, 5, 6, 6});
-        ListY = new List<int> (new int[] {0, 0, 1, 1});
-        colorPiece = SquareColor.YELLOW;
-    }
-}
-
-public class MPiece : Piece {
-    public MPiece() : base() {
-        ListX = new List<int>(new int[] {5, 6, 6, 7});
-        ListY = new List<int> (new int[] {1, 1, 0, 0});
-        colorPiece = SquareColor.GREEN;
-    }
-}
-
-public class NPiece : Piece {
-    public NPiece() : base() {
-        ListX = new List<int>(new int[] {5, 6, 6, 7});
-        ListY = new List<int> (new int[] {1, 1, 0, 1});
+public class TPiece : Piece{
+    public TPiece() : base(){
+        ListX = new List<int>(new int[] {5,6,6,7});
+        ListY = new List<int>(new int[] {1,1,0,1});
         colorPiece = SquareColor.PURPLE;
     }
 }
-
-public class OPiece : Piece {
-    public OPiece() : base() {
-        ListX = new List<int>(new int[] {5, 6, 6, 7});
-        ListY = new List<int> (new int[] {0, 0, 1, 1});
+public class OPiece : Piece{
+    public OPiece() : base(){
+        ListX = new List<int>(new int[] {5,6,5,6});
+        ListY = new List<int>(new int[] {0,0,1,1});
+        colorPiece = SquareColor.YELLOW;
+    }
+}
+public class ZPiece : Piece{
+    public ZPiece() : base(){
+        ListX = new List<int>(new int[] {5,6,6,7});
+        ListY = new List<int>(new int[] {0,0,1,1});
         colorPiece = SquareColor.RED;
+    }
+}
+public class SPiece : Piece{
+    public SPiece() : base(){
+        ListX = new List<int>(new int[] {5,6,6,7});
+        ListY = new List<int>(new int[] {1,1,0,0});
+        colorPiece = SquareColor.GREEN;
+    }
+}
+public class LPiece : Piece{
+    public LPiece() : base(){
+        ListX = new List<int>(new int[] {5,6,7,7});
+        ListY = new List<int>(new int[] {0,0,0,1});
+        colorPiece = SquareColor.ORANGE;
+    }
+}
+public class JPiece : Piece{
+    public JPiece() : base(){
+        ListX = new List<int>(new int[] {5,5,6,7});
+        ListY = new List<int>(new int[] {1,0,0,0});
+        colorPiece = SquareColor.DEEP_BLUE;
     }
 }
