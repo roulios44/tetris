@@ -81,6 +81,7 @@ public class Piece{
             }
         }
     }
+
     //TODO add a metod to watch piece under each pixel 
 }
 

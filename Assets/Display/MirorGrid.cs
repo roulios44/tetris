@@ -33,9 +33,6 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
-    // public Piece generatePiece(){
-    //     Piece.patternPieces.orderPiece[0];
-    // }
     public void GameTick(){
         PieceGoDown();
     }
