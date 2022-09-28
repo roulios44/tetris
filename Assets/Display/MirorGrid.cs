@@ -17,7 +17,7 @@ public class MirorGrid{
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
             for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
+                SquareColor color = SquareColor.TRANSPARENT;
                 LigneColor.Add(color);
             }
             mirorGrid.Add(LigneColor);   
@@ -33,9 +33,6 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
-    // public Piece generatePiece(){
-    //     Piece.patternPieces.orderPiece[0];
-    // }
     public void GameTick(){
         PieceGoDown();
     }
