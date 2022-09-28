@@ -37,11 +37,10 @@ public class MirorGrid{
     }
     public void GameTick(){
         if (currentPiece.isStop){
-            if (indexActuelPiece > Pieces.totalPieces){
+            indexActuelPiece++;
+            if (indexActuelPiece > 6){
                 indexActuelPiece = 0;
                 patternPieces = new Pieces();
-            } else {
-                indexActuelPiece++;
             }
             currentPiece = patternPieces.allPieces[indexActuelPiece];
         }
