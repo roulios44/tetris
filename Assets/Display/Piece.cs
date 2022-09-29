@@ -90,22 +90,6 @@ public class Piece{
         }
     }
 
-    private void score(List<List<SquareColor>> mirorGrid){
-        int score = 0;
-        for (int i = 0; i<mirorGrid.Count;i++){
-            bool isFull = true;
-            for (int j = 0; j<mirorGrid[i].Count;j++){
-                if (mirorGrid[i][j] == SquareColor.TRANSPARENT) isFull = false;
-            }
-            if (isFull){
-                score++;
-                for (int j = 0; j<mirorGrid[i].Count;j++){
-                    mirorGrid[i][j] = SquareColor.TRANSPARENT;
-                }
-            }
-        }
-    }
-
     //TODO add a metod to watch piece under each pixel 
 }
 

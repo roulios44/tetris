@@ -11,6 +11,7 @@ public class MirorGrid{
     private int indexActuelPiece = 0;
     public Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
+    private int score = 0;
     public MirorGrid(){
         currentPiece = patternPieces.allPieces[indexActuelPiece];
         SetGrid();
@@ -46,7 +47,8 @@ public class MirorGrid{
         }
         PieceGoDown();
         BreakLine();
-    }
+        
+        }
 
     public void BreakLine() {
         for (int i = 0; i < _grid.height; i++) {
@@ -58,10 +60,16 @@ public class MirorGrid{
             }
             mirorGrid.RemoveAt(i);
             mirorGrid.Insert(0, LigneColor);
+            BreakLinecount++;
             }
         }
     }
-    public void setScore() {
-        _grid.score();
+    public void GetScore(){
+        if (BreakLine(BreakLinecount) == 1){
+            score += 40;
+        }
     }
-}
+    public int GetScoreCalculate() {
+        return score;
+    }
+} 
