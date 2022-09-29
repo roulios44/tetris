@@ -7,7 +7,6 @@ public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
-    private int widht = 0;
     private int breakLineCount = 0;
     private int width = 0;
     private int indexActuelPiece = 0;

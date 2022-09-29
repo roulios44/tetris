@@ -57,41 +57,7 @@ public class Piece{
         }
         return mirorGrid;
     }
-    
-    private void lookRight(){
-        
-        bool rightisOk = true;
-        foreach (int coordX in ListX){
-            if (coordX + 1 > 9) rightisOk = false;
-        }
-        if (rightisOk) canGoRight = true;
-        else canGoRight = false;
-        if (mirorGrid[ListY[i]][ListX[i] - 1] != SquareColor.TRANSPARENT) canGoRight = false; 
-    }
 
-    private void lookLeft(){
-        bool leftIsOk = true;
-        foreach (int coordX in ListX){
-            if (coordX - 1 < 0) leftIsOk = false;
-        }
-        if (leftIsOk) canGoLeft = true;
-        else canGoLeft = false;
-        if (mirorGrid[ListY[i]][ListX[i] - 1] != SquareColor.TRANSPARENT) canGoLeft = false;
-    }
-
-    private void lookBottom(List<List<SquareColor>> mirorGrid){
-        bool bottomIsOk = true;
-        for (int i = 0; i< ListX.Count;i++){
-            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21) && !(ListY.Contains(ListY[i]+1))){
-                bottomIsOk = false;
-            }
-            if (bottomIsOk) canGoDown = true;
-            else {
-                canGoDown = false;
-                isStop = true;
-            }
-        }
-    }
 
     //TODO add a metod to watch piece under each pixel 
 }
