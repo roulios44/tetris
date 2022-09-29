@@ -59,6 +59,7 @@ public class Piece{
     }
     
     private void lookRight(){
+        
         bool rightisOk = true;
         foreach (int coordX in ListX){
             if (coordX + 1 > 9) rightisOk = false;
