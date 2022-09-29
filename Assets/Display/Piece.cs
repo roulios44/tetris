@@ -101,38 +101,6 @@ public class Piece{
         }
     }
 
-    public void generateNewPiece(List<List<SquareColor>> mirorGrid){
-        int random = Random.Range(0, 7);
-        switch (random){
-            case 0:
-                currentPiece = new IPiece();
-                break;
-            case 1:
-                currentPiece = new JPiece();
-                break;
-            case 2:
-                currentPiece = new LPiece();
-                break;
-            case 3:
-                currentPiece = new OPiece();
-                break;
-            case 4:
-                currentPiece = new SPiece();
-                break;
-            case 5:
-                currentPiece = new TPiece();
-                break;
-            case 6:
-                currentPiece = new ZPiece();
-                break;
-        }
-        for (int i = 0; i<currentPiece.ListX.Count;i++){
-            if (mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] != SquareColor.TRANSPARENT){
-                Debug.Log("Game Over");
-            }
-        }
-    }
-
     //TODO add a metod to watch piece under each pixel 
 }
 
