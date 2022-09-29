@@ -49,7 +49,16 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction peut être une méthode d'une autre classe
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetRotateFunction(RotateFunction function){
-        _grid.Rotate = function;
+        static doube moveRotate(){
+            _grid.Rotate = function;
+            for(int i=0; i < 4; i++){
+                _grid.SetColor(_grid.piece.ListY[i], _grid.piece.ListX[i], _grid.piece.colorPiece);
+                int buff = _grid.piece[i][0];
+                _grid.piece[i][0] = _grid.piece[i][1];
+                _grid.piece[i][1] = -buff;
+            }
+        }
+        
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de gauche 
@@ -66,11 +75,6 @@ public class GridDisplay : MonoBehaviour
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetMoveRightFunction(MoveFunction function){
         _grid.MoveRight = function;
-        public static MoveRight(){
-            if (KeyData = KeysRight){
-                this.MoveRight(go);
-            }
-        }
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la barre d'espace

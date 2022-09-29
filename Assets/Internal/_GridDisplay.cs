@@ -108,13 +108,8 @@ public class _GridDisplay : MonoBehaviour
     }
 
     void OnRush(){
-<<<<<<< HEAD
         if(this.MoveRight != null){
             this.MoveRight();
-=======
-        if(this.Rush != null){
-            this.Rush();
->>>>>>> 8e29ba3ea065e509405858b15bf296d5588bb24c
         }
     }
 

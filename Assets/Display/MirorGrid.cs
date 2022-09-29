@@ -40,6 +40,10 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
+
+    public void PieceRotate(){
+        _grid.SetColors(currentPiece.Rotate(mirorGrid));
+    }
     // public Piece generatePiece(){
     //     Piece.patternPieces.orderPiece[0];
     // }

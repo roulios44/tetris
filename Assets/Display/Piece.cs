@@ -51,6 +51,26 @@ public class Piece{
         if (leftIsOk) canGoLeft = true;
         else canGoLeft = false;
     }
+
+    private void lookRotate(){
+        bool rotateIsOk = true;
+        foreach (int coordX in ListX){
+            if (coordX + 1 > 9) rotateIsOk = false;
+        }
+        if (rotateIsOk) canGoRight = true;
+        else canGoRight = false;
+    }
+    public List<List<SquareColor>> Rotate(List<List<SquareColor>> mirorGrid){
+        lookRotate();
+        if (canGoRight){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] + 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }
     public Piece getPiece(int index){
         switch(index){
             case 1:
