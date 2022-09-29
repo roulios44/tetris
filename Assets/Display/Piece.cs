@@ -62,7 +62,7 @@ public class Piece{
         bool rightisOk = true;
         for (int i = 0; i<ListX.Count;i++){
             // Look if the future right position is not out of limit
-            if (ListX[i] + 1 > width -1 ) rightisOk = false;
+            if (ListX[i] + 1 > width ) rightisOk = false;
             // Look if the future right position is free
             if (!(mirorGrid[ListY[i]][ListX[i]+1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]+1))) rightisOk = false;
         }
