@@ -8,7 +8,9 @@ public class MirorGrid{
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
     private int widht = 0;
+    private int breakLineCount = 0;
     private int indexActuelPiece = 0;
+    private int actualLevel = 1;
     public Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
     private int score = 0;
@@ -47,8 +49,9 @@ public class MirorGrid{
         }
         PieceGoDown();
         BreakLine();
-        
-        }
+        ScoreCalculator();
+        GridDisplay.SetScore(score);
+    }
 
     public void BreakLine() {
         for (int i = 0; i < _grid.height; i++) {
@@ -60,16 +63,21 @@ public class MirorGrid{
             }
             mirorGrid.RemoveAt(i);
             mirorGrid.Insert(0, LigneColor);
-            BreakLinecount++;
+            breakLineCount += 1;
             }
         }
     }
-    public void GetScore(){
-        if (BreakLine(BreakLinecount) == 1){
-            score += 40;
+
+    public void ScoreCalculator() {
+        if (breakLineCount == 1) {
+            score += 40*actualLevel;
+        } else if (breakLineCount == 2) {
+            score += 100*actualLevel;
+        } else if (breakLineCount == 3) {
+            score += 300*actualLevel;
+        } else if (breakLineCount == 4) {
+            score += 1200*actualLevel;
         }
+        breakLineCount = 0;
     }
-    public int GetScoreCalculate() {
-        return score;
-    }
-} 
+}
