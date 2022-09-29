@@ -43,6 +43,7 @@ public class Piece{
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
         }
+        Debug.Log("debug for pull");
         return mirorGrid;
     }
 
