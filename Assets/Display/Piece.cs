@@ -58,6 +58,18 @@ public class Piece{
         }
         return mirorGrid;
     }
+    
+    private void lookRight(List<List<SquareColor>> mirorGrid, int width){
+        bool rightisOk = true;
+        for (int i = 0; i<ListX.Count;i++){
+            // Look if the future right position is not out of limit
+            if (ListX[i] + 1 > width ) rightisOk = false;
+            // Look if the future right position is free
+            if (!(mirorGrid[ListY[i]][ListX[i]+1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]+1))) rightisOk = false;
+        }
+        if (rightisOk) canGoRight = true;
+        else canGoRight = false;
+    }
 
 
     //TODO add a metod to watch piece under each pixel 
