@@ -7,6 +7,7 @@ public class Piece{
     public SquareColor colorPiece;
     public bool canGoRight;
     public bool canGoLeft;
+    public int rotationIndex = 0;
     public void ChangeListX(int index, int value){
         ListX[index] = value;
     }
@@ -35,6 +36,36 @@ public class Piece{
         }
         return mirorGrid;
     }
+
+    public void Rotate(int direction){
+        this.rotationIndex += Wrap(this.rotationIndex + direction, 0, 4);
+        for (int i=0;i<ListX.Count;i++){
+            ChangeListX(i, ListX[i] + 1);
+            ChangeListY(i, ListY[i] + 1);
+        }
+    }
+
+    private int Wrap(int input, int min, int max){
+        if (input < min){
+            return max - (min - input) % (max - min);
+        }
+        else (input > max){
+            return min - (max - input) % (max - min);
+        }
+    }
+
+    /*public List<List<SquareColor>> Rotate(List<List<SquareColor>> mirorGrid){
+        lookRotate();
+        if (canGoRight){
+            for (int i=0;i<ListX.Count;i++){
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i, ListX[i] + 1);
+                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+            }
+        }
+        return mirorGrid;
+    }*/
+
     private void lookRight(){
         bool rightisOk = true;
         foreach (int coordX in ListX){
@@ -52,25 +83,15 @@ public class Piece{
         else canGoLeft = false;
     }
 
-    private void lookRotate(){
+    /*private void lookRotate(){
         bool rotateIsOk = true;
         foreach (int coordX in ListX){
             if (coordX + 1 > 9) rotateIsOk = false;
         }
         if (rotateIsOk) canGoRight = true;
         else canGoRight = false;
-    }
-    public List<List<SquareColor>> Rotate(List<List<SquareColor>> mirorGrid){
-        lookRotate();
-        if (canGoRight){
-            for (int i=0;i<ListX.Count;i++){
-                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
-                ChangeListX(i, ListX[i] + 1);
-                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
-            }
-        }
-        return mirorGrid;
-    }
+    }*/
+    
     public Piece getPiece(int index){
         switch(index){
             case 1:
