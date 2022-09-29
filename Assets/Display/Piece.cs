@@ -23,6 +23,8 @@ public class Piece{
         if (canGoDown){
             for (int i = 0; i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+            }
+            for ( int i=0;i<ListX.Count;i++){
                 ChangeListY(i,ListY[i]+1);
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
@@ -76,12 +78,15 @@ public class Piece{
 
     private void lookBottom(List<List<SquareColor>> mirorGrid){
         bool bottomIsOk = true;
-        for (int i = 0; i<ListX.Count;i++){
-            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21)){
+        for (int i = 0; i< ListX.Count;i++){
+            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21) && !(ListY.Contains(ListY[i]+1))){
                 bottomIsOk = false;
             }
             if (bottomIsOk) canGoDown = true;
-            else canGoDown = false;
+            else {
+                canGoDown = false;
+                isStop = true;
+            }
         }
     }
 
