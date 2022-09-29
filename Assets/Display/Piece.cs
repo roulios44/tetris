@@ -65,6 +65,7 @@ public class Piece{
         }
         if (rightisOk) canGoRight = true;
         else canGoRight = false;
+        if (mirorGrid[ListY[i]][ListX[i] - 1] != SquareColor.TRANSPARENT) canGoRight = false; 
     }
 
     private void lookLeft(){
@@ -74,6 +75,7 @@ public class Piece{
         }
         if (leftIsOk) canGoLeft = true;
         else canGoLeft = false;
+        if (mirorGrid[ListY[i]][ListX[i] - 1] != SquareColor.TRANSPARENT) canGoLeft = false;
     }
 
     private void lookBottom(List<List<SquareColor>> mirorGrid){
