@@ -42,6 +42,7 @@ public class GridDisplay : MonoBehaviour
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetTickFunction(TickFunction function){
         _grid.Tick = function;
+        
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la barre d'espace 

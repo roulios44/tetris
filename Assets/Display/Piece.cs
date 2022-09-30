@@ -25,7 +25,7 @@ public class Piece{
         }
         return mirorGrid;
     }
-    public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
+    public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mir orGrid){
         lookLeft();
         if (canGoLeft){
             for (int i=0;i<ListX.Count;i++){
@@ -41,7 +41,7 @@ public class Piece{
         this.rotationIndex += Wrap(this.rotationIndex + direction, 0, 4);
         for (int i=0;i<ListX.Count;i++){
             ChangeListX(i, ListX[i] + 1);
-            ChangeListY(i, ListY[i] + 1);
+            ChangeListY(i, ListY[i] + 1);+
         }
     }
 
