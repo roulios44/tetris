@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Piece{
     public List<int> ListX;
@@ -18,36 +19,36 @@ public class Piece{
         ListY[index] = value;
     }
 
-    public List<List<SquareColor>> GoDown(List<List<SquareColor>> mirorGrid){
-        lookBottom(mirorGrid);
+    public List<List<SquareColor>> GoDown(MirorGrid grid){
+        lookBottom(grid.mirorGrid, grid.getHeight());
         if (canGoDown){
             for (int i = 0; i<ListX.Count;i++){
-                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                grid.mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
             }
             for ( int i=0;i<ListX.Count;i++){
                 ChangeListY(i,ListY[i]+1);
-                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+                grid.mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
         }
-        return mirorGrid;
+        return grid.mirorGrid;
     }
     
-    public List<List<SquareColor>> GoRight(List<List<SquareColor>> mirorGrid){
-        lookRight();
+    public List<List<SquareColor>> GoRight(MirorGrid grid){
+        lookRight(grid.mirorGrid,grid.getWidht());
         if (canGoRight){
             for (int i=0;i<ListX.Count;i++){
-                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                grid.mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
             }
             for (int i=0;i<ListX.Count;i++){
                 ChangeListX(i, ListX[i] + 1);
-                mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+                grid.mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
         }
-        return mirorGrid;
+        return grid.mirorGrid;
     }
 
     public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
-        lookLeft();
+        lookLeft(mirorGrid);
         if (canGoLeft){
             for (int i=0;i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
@@ -57,29 +58,56 @@ public class Piece{
         }
         return mirorGrid;
     }
+
+    public List<List<SquareColor>> TurnAround(List<List<SquareColor>> mirorGrid) {
+        int newCoordX = 0;
+        int newCoordY = 0;
+        for (int i=0;i<ListX.Count;i++) {
+            mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+            newCoordX = (int)Math.Round(ListX[i]*Math.Cos(Math.PI/2)-ListY[i]*Math.Sin(Math.PI/2));
+            newCoordY = (int)Math.Round(ListX[i]*Math.Sin(Math.PI/2)+ListY[i]*Math.Cos(Math.PI/2));
+            if (newCoordX < 0) {
+                newCoordX *= -1;
+            }
+            if (newCoordY < 0) {
+                newCoordY *= -1;
+            }
+            ChangeListX(i, newCoordX);
+            ChangeListY(i, newCoordY);
+            mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+        }
+        return mirorGrid;
+    }
     
-    private void lookRight(){
+    private void lookRight(List<List<SquareColor>> mirorGrid, int width){
         bool rightisOk = true;
-        foreach (int coordX in ListX){
-            if (coordX + 1 > 9) rightisOk = false;
+        for (int i = 0; i<ListX.Count;i++){
+            // Look if the future right position is not out of limit
+            if (ListX[i] + 1 > width -1 ) rightisOk = false;
+            // Look if the future right position is free
+            if (!(mirorGrid[ListY[i]][ListX[i]+1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]+1))) rightisOk = false;
         }
         if (rightisOk) canGoRight = true;
         else canGoRight = false;
     }
 
-    private void lookLeft(){
+    private void lookLeft(List<List<SquareColor>> mirorGrid){
         bool leftIsOk = true;
-        foreach (int coordX in ListX){
-            if (coordX - 1 < 0) leftIsOk = false;
+        for (int i = 0;i<ListX.Count;i++){
+            // Look if the future left position don't gonna be out of the gird limit
+            if (ListX[i] - 1 < 0) leftIsOk = false;
+            // Look if the future left position is free
+            if (!(mirorGrid[ListY[i]][ListX[i]-1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]-1))) leftIsOk = false;
+            // if (!(mirorGrid[ListY[i]][ListX[i]-1] == SquareColor.TRANSPARENT))Debug.Log("Look left is not ok");
         }
         if (leftIsOk) canGoLeft = true;
         else canGoLeft = false;
     }
 
-    private void lookBottom(List<List<SquareColor>> mirorGrid){
+    private void lookBottom(List<List<SquareColor>> mirorGrid, int height){
         bool bottomIsOk = true;
         for (int i = 0; i< ListX.Count;i++){
-            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < 21) && !(ListY.Contains(ListY[i]+1))){
+            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < height - 1) && !(ListY.Contains(ListY[i]+1))){
                 bottomIsOk = false;
             }
             if (bottomIsOk) canGoDown = true;
@@ -92,7 +120,7 @@ public class Piece{
 }
 
 
-//Part with all pieces specifiquations
+//Part with all pieces specifiquations (Coord & Colors)
 
 public class IPiece : Piece{
     public IPiece() : base(){
@@ -110,8 +138,8 @@ public class TPiece : Piece{
 }
 public class OPiece : Piece{
     public OPiece() : base(){
-        ListX = new List<int>(new int[] {5,6,5,6});
-        ListY = new List<int>(new int[] {0,0,1,1});
+        ListX = new List<int>(new int[] {5,5,6,6});
+        ListY = new List<int>(new int[] {0,1,0,1});
         colorPiece = SquareColor.YELLOW;
     }
 }
@@ -132,14 +160,14 @@ public class SPiece : Piece{
 public class LPiece : Piece{
     public LPiece() : base(){
         ListX = new List<int>(new int[] {5,6,7,7});
-        ListY = new List<int>(new int[] {0,0,0,1});
+        ListY = new List<int>(new int[] {1,1,0,1});
         colorPiece = SquareColor.ORANGE;
     }
 }
 public class JPiece : Piece{
     public JPiece() : base(){
         ListX = new List<int>(new int[] {5,5,6,7});
-        ListY = new List<int>(new int[] {1,0,0,0});
+        ListY = new List<int>(new int[] {0,1,1,1});
         colorPiece = SquareColor.DEEP_BLUE;
     }
 }
