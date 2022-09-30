@@ -91,4 +91,12 @@ public class MirorGrid{
         }
         breakLineCount = 0;
     }
+
+    public void GameOver(List<List<SquareColor>> mirorGrid) {
+        for (int i = 0; i < ListX.Count; i++) {
+            if (mirorGrid[0][i] != SquareColor.TRANSPARENT) { 
+                Debug.Log("Game Over");
+            }
+        }
+    }
 }
