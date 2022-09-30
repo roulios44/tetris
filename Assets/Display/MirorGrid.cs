@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
@@ -59,6 +58,7 @@ public class MirorGrid{
         BreakLine();
         ScoreCalculator();
         GridDisplay.SetScore(score);
+        GridDisplay.SetRotateFunction(currentPiece.Rotate);
     }
 
     public void BreakLine() {
@@ -87,5 +87,17 @@ public class MirorGrid{
             score += 1200*actualLevel;
         }
         breakLineCount = 0;
+    }
+
+    public void RotatePiece() {
+        currrentPiece = Piece.3.14/2;
+        if (currentPiece.isStop){
+            indexActuelPiece++;
+            if (indexActuelPiece > 6){
+                indexActuelPiece = 0;
+                patternPieces = new Pieces();
+            }
+            currentPiece = patternPieces.allPieces[indexActuelPiece];
+        }
     }
 }
