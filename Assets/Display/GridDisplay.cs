@@ -20,6 +20,7 @@ public class GridDisplay : MonoBehaviour
         SetMoveRightFunction(mirorGrid.PieceGoRight);
         SetMoveLeftFunction(mirorGrid.PieceGoLeft);
         SetRushFunction(mirorGrid.PieceGoDown);
+        SetRotateFunction(mirorGrid.PieceRotate);
         SetTickFunction(mirorGrid.GameTick);
         
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.

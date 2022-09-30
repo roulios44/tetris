@@ -46,10 +46,13 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
+    public void PieceRotate(){
+        currentPiece.rotatePiece(mirorGrid);
+    }
     public void GameTick(){
         if (currentPiece.isStop){
             indexActuelPiece++;
-            if (indexActuelPiece > 6){
+            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
                 indexActuelPiece = 0;
                 patternPieces = new Pieces();
             }
