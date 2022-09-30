@@ -13,6 +13,16 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
+        MirorGrid mirorGrid = new MirorGrid();
+        Pieces test = new Pieces();
+        test.setPiecesOrder();
+        SetTickTime(0.3f);
+        SetMoveRightFunction(mirorGrid.PieceGoRight);
+        SetMoveLeftFunction(mirorGrid.PieceGoLeft);
+        SetRushFunction(mirorGrid.PieceGoDown);
+        SetRotateFunction(mirorGrid.PieceRotate);
+        SetTickFunction(mirorGrid.GameTick);
+        
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
@@ -22,17 +32,6 @@ public class GridDisplay : MonoBehaviour
         //        et la flèche du bas du clavier.
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
-        List<List<SquareColor>> grid = new List<List<SquareColor>>();
-        for (int i=0;i<_grid.height;i++){
-            List<SquareColor> testColor = new List<SquareColor>();
-            for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
-                testColor.Add(color);
-            }
-            grid.Add(testColor);
-            
-        }
-        _grid.SetColors(grid);
                   
     }
 
@@ -42,7 +41,6 @@ public class GridDisplay : MonoBehaviour
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetTickFunction(TickFunction function){
         _grid.Tick = function;
-        
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la barre d'espace 
@@ -50,16 +48,7 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction peut être une méthode d'une autre classe
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetRotateFunction(RotateFunction function){
-        static doube moveRotate(){
-            _grid.Rotate = function;
-            for(int i=0; i < 4; i++){
-                _grid.SetColor(_grid.piece.ListY[i], _grid.piece.ListX[i], _grid.piece.colorPiece);
-                int buff = _grid.piece[i][0];
-                _grid.piece[i][0] = _grid.piece[i][1];
-                _grid.piece[i][1] = -buff;
-            }
-        }
-        
+        _grid.Rotate = function;
     }
 
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de gauche 

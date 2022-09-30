@@ -7,47 +7,88 @@ public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
-    private int widht = 0;
+    private int width = 0;
+    private int breakLineCount = 0;
+    private int indexActuelPiece = 0;
+    public int score = 0;
+    private int actualLevel = 1;
     public Pieces patternPieces = new Pieces();
-    protected Piece currentPiece = new IPiece();
+    protected Piece currentPiece;
+    public int getHeight(){
+        return this.height;
+    }
+    public int getWidht(){
+        return this.width;
+    }
     public MirorGrid(){
+        this.width = _grid.width;
+        this.height = _grid.height;
+        currentPiece = patternPieces.allPieces[indexActuelPiece];
         SetGrid();
     }
     protected void SetGrid(){
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
             for (int j=0;j<_grid.width;j++){
-                SquareColor color = SquareColor.GREEN;
+                SquareColor color = SquareColor.TRANSPARENT;
                 LigneColor.Add(color);
             }
             mirorGrid.Add(LigneColor);   
         }
         _grid.SetColors(mirorGrid);
     }
-    public void passifFall(){
-        for (int i = 0; i<currentPiece.ListX.Count;i++){
-            if (currentPiece.ListY[i] < 21){
-                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = SquareColor.TRANSPARENT;
-                currentPiece.ChangeListY(i,currentPiece.ListY[i]+1);
-                mirorGrid[currentPiece.ListY[i]][currentPiece.ListX[i]] = currentPiece.colorPiece;
-                }
-            }
-        _grid.SetColors(mirorGrid);
+    public void PieceGoDown(){
+        _grid.SetColors(currentPiece.GoDown(this));
     }
     public void PieceGoRight(){
-        _grid.SetColors(currentPiece.GoRight(mirorGrid));
+        _grid.SetColors(currentPiece.GoRight(this));
     }
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
-
     public void PieceRotate(){
-        _grid.SetColors(currentPiece.Rotate(mirorGrid));
+        currentPiece.rotatePiece(mirorGrid);
     }
-    // public Piece generatePiece(){
-    //     Piece.patternPieces.orderPiece[0];
-    // }
     public void GameTick(){
-        passifFall();
+        if (currentPiece.isStop){
+            indexActuelPiece++;
+            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
+                indexActuelPiece = 0;
+                patternPieces = new Pieces();
+            }
+            currentPiece = patternPieces.allPieces[indexActuelPiece];
+        }
+        PieceGoDown();
+        BreakLine();
+        ScoreCalculator();
+        GridDisplay.SetScore(score);
+    }
+
+    public void BreakLine() {
+        for (int i = 0; i < _grid.height; i++) {
+            if (!mirorGrid[i].Contains(SquareColor.TRANSPARENT)) {
+                List<SquareColor> LigneColor = new List<SquareColor>();
+                for (int j=0;j<_grid.width;j++){
+                SquareColor color = SquareColor.TRANSPARENT;
+                LigneColor.Add(color);
+            }
+            mirorGrid.RemoveAt(i);
+            mirorGrid.Insert(0, LigneColor);
+            breakLineCount += 1;
+            }
+        }
+    }
+
+    public void ScoreCalculator() {
+        if (breakLineCount == 1) {
+            score += 40*actualLevel;
+        } else if (breakLineCount == 2) {
+            score += 100*actualLevel;
+        } else if (breakLineCount == 3) {
+            score += 300*actualLevel;
+        } else if (breakLineCount == 4) {
+            score += 1200*actualLevel;
+        }
+        breakLineCount = 0;
     }
 }
