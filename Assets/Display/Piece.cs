@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Piece{
     public List<int> ListX;
@@ -95,6 +96,21 @@ public class Piece{
                 isStop = true;
             }
         }
+    }
+    public void rotatePiece(List<List<SquareColor>> mirorGrid){
+        for (int i = 0;i<ListX.Count;i++){
+            if ( i != 1){
+                int coordX = ListX[i] - ListX[1];
+                int coordY = ListY[i] - ListY[1];
+                int newCoordX = Convert.ToInt32((coordX* Math.Cos(Math.PI/2) - coordY*Math.Sin(Math.PI/2)));
+                int newCoordY = Convert.ToInt32((coordX * Math.Sin(Math.PI/2) + coordY * Math.Cos(Math.PI/2)));
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i,newCoordX + ListX[1]);
+                ChangeListY(i,newCoordY + ListY[1]);
+            }
+            
+        }
+        for ( int i = 0;i<ListX.Count;i++)mirorGrid[ListY[i]][ListX[i]] = colorPiece;
     }
 }
 

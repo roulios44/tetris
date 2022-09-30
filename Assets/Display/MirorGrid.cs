@@ -6,8 +6,8 @@ public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
     private int height = 0;
-    private int breakLineCount = 0;
     private int width = 0;
+    private int breakLineCount = 0;
     private int indexActuelPiece = 0;
     private int actualLevel = 1;
     public Pieces patternPieces = new Pieces();
@@ -45,10 +45,13 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
+    public void PieceRotate(){
+        currentPiece.rotatePiece(mirorGrid);
+    }
     public void GameTick(){
         if (currentPiece.isStop){
             indexActuelPiece++;
-            if (indexActuelPiece > 6){
+            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
                 indexActuelPiece = 0;
                 patternPieces = new Pieces();
             }
