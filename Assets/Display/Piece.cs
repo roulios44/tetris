@@ -9,6 +9,7 @@ public class Piece{
     public bool canGoRight;
     public bool canGoLeft;
     public bool canGoDown;
+    public bool canRotate;
     public bool isStop;
 
     public void ChangeListX(int index, int value){
@@ -52,6 +53,8 @@ public class Piece{
         if (canGoLeft){
             for (int i=0;i<ListX.Count;i++){
                 mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+            }
+            for (int i=0;i<ListX.Count;i++){
                 ChangeListX(i, ListX[i] - 1);
                 mirorGrid[ListY[i]][ListX[i]] = colorPiece;
             }
@@ -86,31 +89,65 @@ public class Piece{
 
     private void lookBottom(List<List<SquareColor>> mirorGrid, int height){
         bool bottomIsOk = true;
-        for (int i = 0; i< ListX.Count;i++){
-            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < height - 1) && !(ListY.Contains(ListY[i]+1))){
-                bottomIsOk = false;
+        for (int i = 0; i< ListY.Count;i++){
+            if (mirorGrid[ListY[i]+1][ListX[i]] != SquareColor.TRANSPARENT){
+                if(isOwn(ListY[i]+1,ListX[i],i)){
+                    bottomIsOk = false;
+                }
             }
-            if (bottomIsOk) canGoDown = true;   
-            else {
-                canGoDown = false;
-                isStop = true;
-            }
+            if (ListY[i]+1 > 20) bottomIsOk = false;
+        }
+        if (bottomIsOk) canGoDown = true;
+        else {
+            canGoDown = false;
+            isStop = true;
         }
     }
-    public void rotatePiece(List<List<SquareColor>> mirorGrid){
-        for (int i = 0;i<ListX.Count;i++){
+
+    private void lookRotate(MirorGrid grid){
+        bool rotateIsOk = true;
+        lookBottom(grid.mirorGrid, grid.getHeight());
+        lookRight(grid.mirorGrid, grid.getWidht());
+        lookLeft(grid.mirorGrid);
+        if (!canGoDown) rotateIsOk = false;
+        if (!canGoLeft) rotateIsOk = false;
+        if (!canGoDown) rotateIsOk = false;
+
+        if (rotateIsOk) canRotate = true;
+        else canRotate = false;
+    }
+    /// It rotates the piece by 90 degrees clockwise
+    /// <param name="mirorGrid">a list of lists of SquareColor, which is an enum that can be either
+    /// TRANSPARENT, RED, BLUE, GREEN, YELLOW, PURPLE, ORANGE, or CYAN.</param>
+    public void rotatePiece(MirorGrid mirorGrid){
+        lookRotate(mirorGrid);
+        if (canRotate){
+            for (int i = 0;i<ListX.Count;i++){
             if ( i != 1){
                 int coordX = ListX[i] - ListX[1];
                 int coordY = ListY[i] - ListY[1];
                 int newCoordX = Convert.ToInt32((coordX* Math.Cos(Math.PI/2) - coordY*Math.Sin(Math.PI/2)));
                 int newCoordY = Convert.ToInt32((coordX * Math.Sin(Math.PI/2) + coordY * Math.Cos(Math.PI/2)));
-                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                mirorGrid.mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
                 ChangeListX(i,newCoordX + ListX[1]);
                 ChangeListY(i,newCoordY + ListY[1]);
             }
             
         }
-        for ( int i = 0;i<ListX.Count;i++)mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+        for ( int i = 0;i<ListX.Count;i++)mirorGrid.mirorGrid[ListY[i]][ListX[i]] = colorPiece;
+        }
+       
+    }
+
+    private bool isOwn(int y, int x, int index){
+        bool underIsOwn = false;
+        for (int i = 0; i<ListX.Count;i++){
+            if (i != index){
+                if ((y == ListY[i]) && (x == ListX[i])) underIsOwn =  true;
+            }
+        }
+        if (underIsOwn)return false;
+        return true;
     }
 }
 
