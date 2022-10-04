@@ -17,7 +17,7 @@ public class MirorGrid{
     public int getHeight(){
         return this.height;
     }
-    public int getWidht(){
+    public int getWidth(){
         return this.width;
     }
     public MirorGrid(){

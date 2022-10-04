@@ -35,7 +35,7 @@ public class Piece{
     }
     
     public List<List<SquareColor>> GoRight(MirorGrid grid){
-        lookRight(grid.mirorGrid,grid.getWidht());
+        lookRight(grid.mirorGrid,grid.getWidth());
         if (canGoRight){
             for (int i=0;i<ListX.Count;i++){
                 grid.mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
@@ -66,7 +66,10 @@ public class Piece{
         bool rightisOk = true;
         for (int i = 0; i<ListX.Count;i++){
             // Look if the future right position is not out of limit
-            if (ListX[i] + 1 > width ) rightisOk = false;
+            if (ListX[i] + 1 > width-1 ) {
+                rightisOk = false;
+                break;
+            }
             // Look if the future right position is free
             if (!(mirorGrid[ListY[i]][ListX[i]+1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]+1))) rightisOk = false;
         }
@@ -78,10 +81,12 @@ public class Piece{
         bool leftIsOk = true;
         for (int i = 0;i<ListX.Count;i++){
             // Look if the future left position don't gonna be out of the gird limit
-            if (ListX[i] - 1 < 0) leftIsOk = false;
+            if (ListX[i] - 1 < 0){
+                leftIsOk = false;
+                break;
+            } 
             // Look if the future left position is free
             if (!(mirorGrid[ListY[i]][ListX[i]-1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]-1))) leftIsOk = false;
-            // if (!(mirorGrid[ListY[i]][ListX[i]-1] == SquareColor.TRANSPARENT))Debug.Log("Look left is not ok");
         }
         if (leftIsOk) canGoLeft = true;
         else canGoLeft = false;
@@ -90,12 +95,13 @@ public class Piece{
     private void lookBottom(List<List<SquareColor>> mirorGrid, int height){
         bool bottomIsOk = true;
         for (int i = 0; i< ListY.Count;i++){
-            if (mirorGrid[ListY[i]+1][ListX[i]] != SquareColor.TRANSPARENT){
-                if(isOwn(ListY[i]+1,ListX[i],i)){
-                    bottomIsOk = false;
-                }
+            if (ListY[i]+1 > height-1){
+                bottomIsOk = false;
+                break;
             }
-            if (ListY[i]+1 > 20) bottomIsOk = false;
+            if (mirorGrid[ListY[i]+1][ListX[i]] != SquareColor.TRANSPARENT && isOwn(ListY[i]+1,ListX[i],i)){
+                bottomIsOk = false;
+            }
         }
         if (bottomIsOk) canGoDown = true;
         else {
@@ -107,12 +113,11 @@ public class Piece{
     private void lookRotate(MirorGrid grid){
         bool rotateIsOk = true;
         lookBottom(grid.mirorGrid, grid.getHeight());
-        lookRight(grid.mirorGrid, grid.getWidht());
+        lookRight(grid.mirorGrid, grid.getWidth());
         lookLeft(grid.mirorGrid);
         if (!canGoDown) rotateIsOk = false;
         if (!canGoLeft) rotateIsOk = false;
         if (!canGoDown) rotateIsOk = false;
-
         if (rotateIsOk) canRotate = true;
         else canRotate = false;
     }
@@ -123,6 +128,7 @@ public class Piece{
         lookRotate(mirorGrid);
         if (canRotate){
             for (int i = 0;i<ListX.Count;i++){
+                // here we take the 2nd block (so the index 1 in coord) to move other block around, so he doesn't change his coord
             if ( i != 1){
                 int coordX = ListX[i] - ListX[1];
                 int coordY = ListY[i] - ListY[1];
