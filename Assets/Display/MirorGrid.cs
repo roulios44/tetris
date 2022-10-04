@@ -11,7 +11,7 @@ public class MirorGrid{
     private int indexActuelPiece = 0;
     private int actualLevel = 1;
     public Pieces patternPieces = new Pieces();
-    protected Piece currentPiece;
+    protected Piece currentPiece;   
     private int score = 0;
     public int getHeight(){
         return this.height;
@@ -48,6 +48,14 @@ public class MirorGrid{
     public void PieceRotate(){
         currentPiece.rotatePiece(mirorGrid);
     }
+    public void GameOver(){
+        bool IsNotFill = false;
+        for (int i = 0; i < mirorGrid[0].Count; i++){
+            if (mirorGrid[0][i] != SquareColor.TRANSPARENT){
+                IsNotFill = true;
+            }
+        }
+    }   
     public void GameTick(){
         if (currentPiece.isStop){
             indexActuelPiece++;
@@ -61,7 +69,7 @@ public class MirorGrid{
         BreakLine();
         ScoreCalculator();
         GridDisplay.SetScore(score);
-        GridDisplay.SetRotateFunction(currentPiece.Rotate);
+        GameOver();
     }
 
     public void BreakLine() {
@@ -90,17 +98,5 @@ public class MirorGrid{
             score += 1200*actualLevel;
         }
         breakLineCount = 0;
-    }
-
-    public void RotatePiece() {
-        currrentPiece = Piece.3.14/2;
-        if (currentPiece.isStop){
-            indexActuelPiece++;
-            if (indexActuelPiece > 6){
-                indexActuelPiece = 0;
-                patternPieces = new Pieces();
-            }
-            currentPiece = patternPieces.allPieces[indexActuelPiece];
-        }
     }
 }
