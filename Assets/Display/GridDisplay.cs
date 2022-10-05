@@ -14,8 +14,6 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         MirorGrid mirorGrid = new MirorGrid();
-        Pieces test = new Pieces();
-        test.setPiecesOrder();
         SetTickTime(0.3f);
         SetMoveRightFunction(mirorGrid.PieceGoRight);
         SetMoveLeftFunction(mirorGrid.PieceGoLeft);
