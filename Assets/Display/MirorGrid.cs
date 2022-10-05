@@ -65,6 +65,14 @@ public class MirorGrid{
         gameIsLoose();
     }
 
+    private void gameIsLoose(){
+        bool lineIsEmpty = true;
+        for (int i = 0; i<mirorGrid[0].Count;i++){
+            if (mirorGrid[0][i] != SquareColor.TRANSPARENT)lineIsEmpty = false;
+        }
+        if ((currentPiece.isStop || !currentPiece.canGoDown) && !lineIsEmpty)GridDisplay.TriggerGameOver();
+        return;
+    }
     public void BreakLine() {
         for (int i = 0; i < _grid.height; i++) {
             if (!mirorGrid[i].Contains(SquareColor.TRANSPARENT)) {
