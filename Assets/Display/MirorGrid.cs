@@ -39,25 +39,31 @@ public class MirorGrid{
         }
         _grid.SetColors(mirorGrid);
     }
+
     public void PieceGoDown(){
         _grid.SetColors(currentPiece.GoDown(this));
     }
+
     public void PieceGoRight(){
         _grid.SetColors(currentPiece.GoRight(this));
     }
+
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
+
     public void PieceRotate(){
         currentPiece.rotatePiece(this);
     }
+
     public void RushFunction() {
         currentPiece.onRush = true;
         GridDisplay.SetTickTime(0.03f);
     }
+
     public void GameTick(){
         if (currentPiece.isStop){
-            GridDisplay.SetTickTime(0.3f-(float)(actualLevel/100));
+            GridDisplay.SetTickTime(0.3f-(actualLevel/100));
             indexActuelPiece++;
             if (indexActuelPiece > patternPieces.allPieces.Count - 1){
                 indexActuelPiece = 0;
@@ -70,9 +76,6 @@ public class MirorGrid{
         ScoreCalculator();
         LevelCalculator();
         GridDisplay.SetScore(score);
-        if (actualLevel != 1) {
-            Debug.Log(actualLevel);
-        }
     }
 
     public void BreakLine() {
