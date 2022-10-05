@@ -38,13 +38,13 @@ public class _GridDisplay : MonoBehaviour
 
     public GameObject squarePrefab = null;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Create();
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
@@ -84,44 +84,42 @@ public class _GridDisplay : MonoBehaviour
                 throw new System.FormatException($"Line {y} of provided grid does not have the right number of columns.");
             }
             for(int x = 0; x < colors[y].Count; x++){
-                squares[y*this.height + x].color = colors[y][x];
+                squares[y*this.width + x].color = colors[y][x];
             }
         }
     }
 
     void OnRotate(){
-        Debug.Log("Rotate");
         if(this.Rotate != null){
             this.Rotate();
         }
     }
 
     void OnMoveLeft(){
-        Debug.Log("MoveLeft");
         if(this.MoveLeft != null){
             this.MoveLeft();
         }
     }
 
     void OnMoveRight(){
-        Debug.Log("MoveRight");
         if(this.MoveRight != null){
             this.MoveRight();
         }
     }
 
     void OnRush(){
-        Debug.Log("Rush");
-        if(this.MoveRight != null){
-            this.MoveRight();
+        if(this.Rush != null){
+            this.Rush();
         }
     }
 
 
     IEnumerator LaunchTicks(){
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }
