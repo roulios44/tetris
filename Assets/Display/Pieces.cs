@@ -20,9 +20,9 @@ public class Pieces {
             toRandomize.RemoveAt(randomArrayPlace);
         }
         orderPiece = randomOrder.ToArray();
-        setPiecesOrder();
+        SetPiecesOrder();
     }
-    public void setPiecesOrder(){
+    public void SetPiecesOrder(){
         allPieces = new List<Piece>();
         List<Piece> pieceInOrder = new List<Piece>();
         pieceInOrder.Add(new IPiece());

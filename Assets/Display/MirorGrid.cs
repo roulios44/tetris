@@ -12,7 +12,7 @@ public class MirorGrid{
     private int indexActuelPiece = 0;
     public int score = 0;
     private int actualLevel = 1;
-    public Pieces patternPieces = new Pieces();
+    private Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
     public int GetHeight(){
         return this.height;
