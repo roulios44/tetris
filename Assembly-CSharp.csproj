@@ -43,6 +43,13 @@
      <Compile Include="Assets\Internal\_Square.cs" />
      <Compile Include="Assets\Display\Piece.cs" />
      <Compile Include="Assets\Display\GridDisplay.cs" />
+     <Compile Include="Assets\Display\OPiece.cs" />
+     <Compile Include="Assets\Display\IPiece.cs" />
+     <Compile Include="Assets\Display\TPiece.cs" />
+     <Compile Include="Assets\Display\LPiece.cs" />
+     <Compile Include="Assets\Display\JPiece.cs" />
+     <Compile Include="Assets\Display\ZPiece.cs" />
+     <Compile Include="Assets\Display\SPiece.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
