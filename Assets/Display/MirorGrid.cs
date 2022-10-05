@@ -46,13 +46,17 @@ public class MirorGrid{
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
-    public void PieceTurnAround() {
-        _grid.SetColors(currentPiece.TurnAround(mirorGrid));
+    public void PieceRotate(){
+        currentPiece.rotatePiece(mirorGrid);
+    }
+    public void RushFunction() {
+        GridDisplay.SetTickTime(0.03f);
     }
     public void GameTick(){
         if (currentPiece.isStop){
+            GridDisplay.SetTickTime(0.3f);
             indexActuelPiece++;
-            if (indexActuelPiece > 6){
+            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
                 indexActuelPiece = 0;
                 patternPieces = new Pieces();
             }

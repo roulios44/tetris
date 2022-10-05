@@ -83,7 +83,7 @@ public class Piece{
         bool rightisOk = true;
         for (int i = 0; i<ListX.Count;i++){
             // Look if the future right position is not out of limit
-            if (ListX[i] + 1 > width -1 ) rightisOk = false;
+            if (ListX[i] + 1 > width ) rightisOk = false;
             // Look if the future right position is free
             if (!(mirorGrid[ListY[i]][ListX[i]+1] == SquareColor.TRANSPARENT) && !(ListX.Contains(ListX[i]+1))) rightisOk = false;
         }
@@ -107,7 +107,7 @@ public class Piece{
     private void lookBottom(List<List<SquareColor>> mirorGrid, int height){
         bool bottomIsOk = true;
         for (int i = 0; i< ListX.Count;i++){
-            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 < height - 1) && !(ListY.Contains(ListY[i]+1))){
+            if (!(mirorGrid[ListY[i]+1][ListX[i]] == SquareColor.TRANSPARENT && ListY[i]+1 != height-1) && !(ListY.Contains(ListY[i]+1))){
                 bottomIsOk = false;
             }
             if (bottomIsOk) canGoDown = true;
@@ -116,6 +116,21 @@ public class Piece{
                 isStop = true;
             }
         }
+    }
+    public void rotatePiece(List<List<SquareColor>> mirorGrid){
+        for (int i = 0;i<ListX.Count;i++){
+            if ( i != 1){
+                int coordX = ListX[i] - ListX[1];
+                int coordY = ListY[i] - ListY[1];
+                int newCoordX = Convert.ToInt32((coordX* Math.Cos(Math.PI/2) - coordY*Math.Sin(Math.PI/2)));
+                int newCoordY = Convert.ToInt32((coordX * Math.Sin(Math.PI/2) + coordY * Math.Cos(Math.PI/2)));
+                mirorGrid[ListY[i]][ListX[i]] = SquareColor.TRANSPARENT;
+                ChangeListX(i,newCoordX + ListX[1]);
+                ChangeListY(i,newCoordY + ListY[1]);
+            }
+            
+        }
+        for ( int i = 0;i<ListX.Count;i++)mirorGrid[ListY[i]][ListX[i]] = colorPiece;
     }
 }
 
