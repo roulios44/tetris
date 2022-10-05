@@ -112,6 +112,15 @@ public class Piece{
         }
         for ( int i = 0;i<ListX.Count;i++)mirorGrid[ListY[i]][ListX[i]] = colorPiece;
     }
+
+    private void gameIsLoose(){
+        bool lineIsEmpty = true;
+        for (int i = 0; i<mirorGrid[0].Count;i++){
+            if (mirorGrid[0][i] != SquareColor.TRANSPARENT)lineIsEmpty = false;
+        }
+        if ((currentPiece.isStop || !currentPiece.canGoDown) && !lineIsEmpty)GridDisplay.TriggerGameOver();
+        return;
+    }
 }
 
 

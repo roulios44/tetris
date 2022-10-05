@@ -62,6 +62,7 @@ public class MirorGrid{
         BreakLine();
         ScoreCalculator();
         GridDisplay.SetScore(score);
+        gameIsLoose();
     }
 
     public void BreakLine() {
@@ -90,10 +91,5 @@ public class MirorGrid{
             score += 1200*actualLevel;
         }
         breakLineCount = 0;
-    }
-    public void gameOver(){
-        if (mirorGrid[0].Contains(SquareColor.RED) || mirorGrid[0].Contains(SquareColor.BLUE) || mirorGrid[0].Contains(SquareColor.GREEN) || mirorGrid[0].Contains(SquareColor.YELLOW) || mirorGrid[0].Contains(SquareColor.ORANGE) || mirorGrid[0].Contains(SquareColor.PURPLE) || mirorGrid[0].Contains(SquareColor.CYAN)) {
-            GridDisplay.GameOver();
-        }
     }
 }
