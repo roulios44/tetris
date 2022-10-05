@@ -118,6 +118,7 @@ public class MirorGrid{
             }
     }
 
+    // Func to calculate the score 
     public void ScoreCalculator() {
         if (currentPiece.onRush) {
             score += 1*actualLevel;
@@ -142,6 +143,7 @@ public class MirorGrid{
         breakLineCount = 0;
     }
 
+    // func to calculate the current level in the game 
     public void LevelCalculator() {
         if (totalBreakedLines == 10) {
             actualLevel +=1;
