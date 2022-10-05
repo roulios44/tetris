@@ -1,8 +1,10 @@
 # Tetris
 
+
 ## Introduction :
 
-We are a team made up of 3 people: CROIZIER Jules, LOUÉ François, HERVOUET Dylan and Rivalant Nicolas. We carried out this project in order to validate the knowledge acquired in C# around object-oriented programming.
+We are a team made up of 4 people: CROIZIER Jules, LOUÉ François, HERVOUET Dylan and RIVALANT Nicolas. We carried out this project in order to validate the knowledge acquired in C# around object-oriented programming.
+We hope you'll like this "HOME MADE" Tetris
 
 ## Objective of the project :
 
