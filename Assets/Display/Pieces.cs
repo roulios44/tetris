@@ -22,7 +22,7 @@ public class Pieces {
         orderPiece = randomOrder.ToArray();
         SetPiecesOrder();
     }
-    public void SetPiecesOrder(){
+    private void SetPiecesOrder(){
         allPieces = new List<Piece>();
         List<Piece> pieceInOrder = new List<Piece>();
         pieceInOrder.Add(new IPiece());

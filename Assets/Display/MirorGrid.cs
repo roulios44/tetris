@@ -11,10 +11,10 @@ public class MirorGrid{
     private int width = 0;
     private int breakLineCount = 0;
     private int indexActuelPiece = 0;
-    public int score = 0;
+    private int score = 0;
     private int actualLevel = 1;
     private int totalBreakedLines = 0;
-    public Pieces patternPieces = new Pieces();
+    private Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
 
     public int GetHeight(){
@@ -70,17 +70,7 @@ public class MirorGrid{
 
     // function used each tick of the game to refresh the grid, and handle the actions.
     public void GameTick(){
-        // if the current piece played is stop, tickTime will be settled at 0.3 (base speed) and an other piece will be displayed
-        if (currentPiece.isStop){
-            GridDisplay.SetTickTime(0.3f-(actualLevel/100));
-            indexActuelPiece++;
-            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
-                indexActuelPiece = 0;
-                patternPieces = new Pieces();
-            }
-            currentPiece = patternPieces.allPieces[indexActuelPiece];
-        }
-        // basic function to run correctly the game, make a piece go down, compute and refresh the score/level, check if the game is lost
+        GenerateNewPiece();
         PieceGoDown();
         BreakLine();
         ScoreCalculator();
@@ -97,6 +87,20 @@ public class MirorGrid{
         }
         if ((currentPiece.isStop || !currentPiece.GetCanGoDown()) && !lineIsEmpty)GridDisplay.TriggerGameOver();
         return;
+    }
+
+    // if the current piece played is stop, tickTime will be settled at 0.3 (base speed) and an other piece will be displayed
+    // basic function to run correctly the game, make a piece go down, compute and refresh the score/level, check if the game is lost
+    private void GenerateNewPiece(){
+        if (currentPiece.isStop){
+            GridDisplay.SetTickTime(0.3f-(actualLevel/100));
+            indexActuelPiece++;
+            if (indexActuelPiece > patternPieces.allPieces.Count - 1){
+                indexActuelPiece = 0;
+                patternPieces = new Pieces();
+            }
+            currentPiece = patternPieces.allPieces[indexActuelPiece];
+        }
     }
 
     // function to verify if a line is fully colored or not and delete it in consequences, if so, a new line will be created and added to the grid
