@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
+/*Class that handle the main function of the game (create the  base grid, generate pieces...) */
 public class MirorGrid{
     public List<List<SquareColor>> mirorGrid = new List<List<SquareColor>>();
     private _GridDisplay _grid = GameObject.FindObjectOfType<_GridDisplay>();
@@ -13,21 +13,24 @@ public class MirorGrid{
     private int indexActuelPiece = 0;
     public int score = 0;
     private int actualLevel = 1;
-    private int totalBreakedLines = 9;
+    private int totalBreakedLines = 0;
     public Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
+
     public int GetHeight(){
         return this.height;
     }
     public int GetWidth(){
         return this.width;
     }
+    // generate a same size grid of the physical one
     public MirorGrid(){
         this.width = _grid.width;
         this.height = _grid.height;
         currentPiece = patternPieces.allPieces[indexActuelPiece];
         SetGrid();
     }
+    // set the grid the game will take place
     protected void SetGrid(){
         for (int i=0;i<_grid.height;i++){
             List<SquareColor> LigneColor = new List<SquareColor>();
@@ -39,29 +42,35 @@ public class MirorGrid{
         }
         _grid.SetColors(mirorGrid);
     }
-
+    // set grid color for a piece going down, used to communicate between written code and unity interface
     public void PieceGoDown(){
         _grid.SetColors(currentPiece.GoDown(this));
     }
 
+    // set grid color for a piece going right, used to communicate between written code and unity interface
     public void PieceGoRight(){
         _grid.SetColors(currentPiece.GoRight(this));
     }
-
+    
+    // set grid color for a piece going left, used to communicate between written code and unity interface
     public void PieceGoLeft(){
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
 
+     // set grid color for a piece rotating, used to communicate between written code and unity interface
     public void PieceRotate(){
         currentPiece.RotatePiece(this);
     }
 
+     // set tick for a piece rushing down, used to communicate between written code and unity interface
     public void RushFunction() {
         currentPiece.onRush = true;
         GridDisplay.SetTickTime(0.03f);
     }
 
+    // function used each tick of the game to refresh the grid, and handle the actions.
     public void GameTick(){
+        // if the current piece played is stop, tickTime will be settled at 0.3 (base speed) and an other piece will be displayed
         if (currentPiece.isStop){
             GridDisplay.SetTickTime(0.3f-(actualLevel/100));
             indexActuelPiece++;
@@ -71,6 +80,7 @@ public class MirorGrid{
             }
             currentPiece = patternPieces.allPieces[indexActuelPiece];
         }
+        // basic function to run correctly the game, make a piece go down, compute and refresh the score/level, check if the game is lost
         PieceGoDown();
         BreakLine();
         ScoreCalculator();
@@ -79,6 +89,7 @@ public class MirorGrid{
         GameIsLose();
     }
 
+    // function to verify if the game is still payable or not
     private  void GameIsLose(){
         bool lineIsEmpty = true;
         for (int i = 0; i<mirorGrid[0].Count;i++){
@@ -88,6 +99,7 @@ public class MirorGrid{
         return;
     }
 
+    // function to verify if a line is fully colored or not and delete it in consequences, if so, a new line will be created and added to the grid
     public void BreakLine() {
         if (currentPiece.isStop) {
             for (int i = 0; i < _grid.height; i++) {
