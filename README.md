@@ -8,8 +8,8 @@ The objective of this project is to make a tetris in C# using Unity as a graphic
 
 ## 🤖 Technologies used:
 <br>
--<img src="C:\Users\dylan\tetris\C#.png" width="50" height="50"> [C#]
--<img src="C:\Users\dylan\tetris\unity.png" width="50" height="50"> [Unity]
+-C#<br>
+-Unity<br>
 
 ## 💻 How does it work :
 <br>
