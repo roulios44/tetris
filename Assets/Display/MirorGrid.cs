@@ -91,12 +91,9 @@ public class MirorGrid{
         }
         breakLineCount = 0;
     }
-
-    public void GameOver(List<List<SquareColor>> mirorGrid) {
-        for (int i = 0; i < ListX.Count; i++) {
-            if (mirorGrid[0][i] != SquareColor.TRANSPARENT) { 
-                Debug.Log("Game Over");
-            }
+    public void gameOver(){
+        if (mirorGrid[0].Contains(SquareColor.RED) || mirorGrid[0].Contains(SquareColor.BLUE) || mirorGrid[0].Contains(SquareColor.GREEN) || mirorGrid[0].Contains(SquareColor.YELLOW) || mirorGrid[0].Contains(SquareColor.ORANGE) || mirorGrid[0].Contains(SquareColor.PURPLE) || mirorGrid[0].Contains(SquareColor.CYAN)) {
+            GridDisplay.GameOver();
         }
     }
 }
