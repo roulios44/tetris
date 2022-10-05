@@ -122,14 +122,22 @@ public class MirorGrid{
         if (currentPiece.onRush) {
             score += 1*actualLevel;
         }
-        if (breakLineCount == 1) {
-            score += 40*actualLevel;
-        } else if (breakLineCount == 2) {
-            score += 100*actualLevel;
-        } else if (breakLineCount == 3) {
-            score += 300*actualLevel;
-        } else if (breakLineCount == 4) {
-            score += 1200*actualLevel;
+        switch (breakLineCount){
+            case 1:
+                score += 40*actualLevel;
+                break;
+            case 2:
+                score += 100*actualLevel;
+                break;
+            case 3:
+                score += 300*actualLevel;
+                break;
+            case 4:
+                score += 1200*actualLevel;
+                break;
+            default:
+                breakLineCount = 0;
+                break;
         }
         breakLineCount = 0;
     }

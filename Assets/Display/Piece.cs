@@ -12,18 +12,19 @@ public class Piece{
     protected bool canRotate;
     public bool isStop;
     public bool onRush = false;
-
+    // Func to change value at a certain index at ListX 
     protected void ChangeListX(int index, int value){
         ListX[index] = value;
     }
-
+    // Func to change value at certain index at ListX
     protected void ChangeListY(int index, int value){
         ListY[index] = value;
     }
-
+    // Func to return canGodDown var
     public bool GetCanGoDown(){
         return canGoDown;
     }
+    // Func that make the piece go Down
     public List<List<SquareColor>> GoDown(MirorGrid grid){
         LookBottom(grid.mirorGrid, grid.GetHeight());
         if (canGoDown){
@@ -37,7 +38,7 @@ public class Piece{
         }
         return grid.mirorGrid;
     }
-    
+    // Func to move the piece to the right 
     public List<List<SquareColor>> GoRight(MirorGrid grid){
         LookRight(grid.mirorGrid,grid.GetWidth());
         if (canGoRight){
@@ -52,6 +53,7 @@ public class Piece{
         return grid.mirorGrid;
     }
 
+    // func that make tje piece go to the left 
     public List<List<SquareColor>> GoLeft(List<List<SquareColor>> mirorGrid){
         LookLeft(mirorGrid);
         if (canGoLeft){
@@ -66,6 +68,12 @@ public class Piece{
         return mirorGrid;
     }
     
+
+    /// <summary>
+    /// It checks if the piece can move to the right
+    /// </summary>
+    /// <param name="mirorGrid">a list of lists of SquareColor, which is an enum.</param>
+    /// <param name="width">the width of the grid</param>
     private void LookRight(List<List<SquareColor>> mirorGrid, int width){
         bool rightisOk = true;
         for (int i = 0; i<ListX.Count;i++){
@@ -81,6 +89,10 @@ public class Piece{
         else canGoRight = false;
     }
 
+    /// <summary>
+    /// It checks if the piece can go left.
+    /// </summary>
+    /// <param name="mirorGrid">The grid that the piece is on.</param>
     private void LookLeft(List<List<SquareColor>> mirorGrid){
         bool leftIsOk = true;
         for (int i = 0;i<ListX.Count;i++){
@@ -96,6 +108,11 @@ public class Piece{
         else canGoLeft = false;
     }
 
+    /// <summary>
+    /// It checks if the piece can go down
+    /// </summary>
+    /// <param name="mirorGrid">The grid that the tetromino is on.</param>
+    /// <param name="height">the height of the grid</param>
     private void LookBottom(List<List<SquareColor>> mirorGrid, int height){
         bool bottomIsOk = true;
         for (int i = 0; i< ListY.Count;i++){
@@ -114,6 +131,10 @@ public class Piece{
         }
     }
 
+    /// <summary>
+    /// > This function checks if the current shape can rotate
+    /// </summary>
+    /// <param name="MirorGrid">The grid that the piece is on.</param>
     private void LookRotate(MirorGrid grid){
         bool rotateIsOk = true;
         LookBottom(grid.mirorGrid, grid.GetHeight());
@@ -149,6 +170,15 @@ public class Piece{
        
     }
 
+    /// <summary>
+    /// It checks if the current position is occupied by another snake
+    /// </summary>
+    /// <param name="y">The y coordinate of the tile</param>
+    /// <param name="x">The x coordinate of the tile</param>
+    /// <param name="index">the index of the current object in the list</param>
+    /// <returns>
+    /// a boolean value.
+    /// </returns>
     private bool IsOwn(int y, int x, int index){
         bool underIsOwn = false;
         for (int i = 0; i<ListX.Count;i++){
