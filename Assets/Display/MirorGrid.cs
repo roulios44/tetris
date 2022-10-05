@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class MirorGrid{
@@ -12,12 +13,13 @@ public class MirorGrid{
     private int indexActuelPiece = 0;
     public int score = 0;
     private int actualLevel = 1;
+    private int totalBreakedLines = 9;
     public Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
     public int getHeight(){
         return this.height;
     }
-    public int getWidht(){
+    public int getWidth(){
         return this.width;
     }
     public MirorGrid(){
@@ -47,14 +49,15 @@ public class MirorGrid{
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
     public void PieceRotate(){
-        currentPiece.rotatePiece(mirorGrid);
+        currentPiece.rotatePiece(this);
     }
     public void RushFunction() {
+        currentPiece.onRush = true;
         GridDisplay.SetTickTime(0.03f);
     }
     public void GameTick(){
         if (currentPiece.isStop){
-            GridDisplay.SetTickTime(0.3f);
+            GridDisplay.SetTickTime(0.3f-(float)(actualLevel/100));
             indexActuelPiece++;
             if (indexActuelPiece > patternPieces.allPieces.Count - 1){
                 indexActuelPiece = 0;
@@ -65,7 +68,11 @@ public class MirorGrid{
         PieceGoDown();
         BreakLine();
         ScoreCalculator();
+        LevelCalculator();
         GridDisplay.SetScore(score);
+        if (actualLevel != 1) {
+            Debug.Log(actualLevel);
+        }
     }
 
     public void BreakLine() {
@@ -80,12 +87,16 @@ public class MirorGrid{
                         mirorGrid.RemoveAt(i);
                         mirorGrid.Insert(0, LigneColor);
                         breakLineCount += 1;
+                        totalBreakedLines += 1;
                         }
                     }
             }
     }
 
     public void ScoreCalculator() {
+        if (currentPiece.onRush) {
+            score += 1*actualLevel;
+        }
         if (breakLineCount == 1) {
             score += 40*actualLevel;
         } else if (breakLineCount == 2) {
@@ -96,5 +107,12 @@ public class MirorGrid{
             score += 1200*actualLevel;
         }
         breakLineCount = 0;
+    }
+
+    public void LevelCalculator() {
+        if (totalBreakedLines == 10) {
+            actualLevel +=1;
+            totalBreakedLines = 0;
+        }
     }
 }
