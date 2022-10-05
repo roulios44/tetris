@@ -14,10 +14,10 @@ public class MirorGrid{
     private int actualLevel = 1;
     public Pieces patternPieces = new Pieces();
     protected Piece currentPiece;
-    public int getHeight(){
+    public int GetHeight(){
         return this.height;
     }
-    public int getWidth(){
+    public int GetWidth(){
         return this.width;
     }
     public MirorGrid(){
@@ -47,7 +47,7 @@ public class MirorGrid{
         _grid.SetColors(currentPiece.GoLeft(mirorGrid));
     }
     public void PieceRotate(){
-        currentPiece.rotatePiece(this);
+        currentPiece.RotatePiece(this);
     }
     public void GameTick(){
         if (currentPiece.isStop){
@@ -62,6 +62,16 @@ public class MirorGrid{
         BreakLine();
         ScoreCalculator();
         GridDisplay.SetScore(score);
+        GameIsLose();
+    }
+
+    private  void GameIsLose(){
+        bool lineIsEmpty = true;
+        for (int i = 0; i<mirorGrid[0].Count;i++){
+            if (mirorGrid[0][i] != SquareColor.TRANSPARENT)lineIsEmpty = false;
+        }
+        if ((currentPiece.isStop || !currentPiece.GetCanGoDown()) && !lineIsEmpty)GridDisplay.TriggerGameOver();
+        return;
     }
 
     public void BreakLine() {
